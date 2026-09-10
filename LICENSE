@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Dean
+Copyright (c) 2026 Carla's
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+-------------------------------------------------------------------------------
+RESERVATION OF CONTENT RIGHTS:
+The MIT License above applies strictly to the structural source code, build 
+configurations, components, and routing logic of this application. 
+
+All rights are reserved for the actual content of the website. You may not copy, 
+reproduce, or redistribute the following proprietary elements for commercial or 
+personal use without explicit written permission:
+- Any text, copy, or written business descriptions.
+- Personal information, biography details, and contact information.
+- Logos, branding materials, custom graphics, and images located in the 
+  /public or /src/assets directories.
