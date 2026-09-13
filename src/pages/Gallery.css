@@ -1,0 +1,91 @@
+.gallery-page {
+    position: relative;
+}
+
+.gallery-rail {
+    /* The wall uses flex so the number of paintings can change freely. */
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 20px auto;
+    max-width: 90%;
+}
+
+.painting-link {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    text-decoration: none;
+    width: min(100%, 380px);
+
+}
+
+.painting-slot {
+    /* Equal square slots keep differently-shaped artwork visually aligned. */
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    overflow: visible;
+    width: 100%;
+}
+
+.painting-image {
+    display: block;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    transition: transform 180ms ease;
+}
+
+.painting-link:hover .painting-image,
+.painting-link:focus-visible .painting-image {
+    transform: scale(1.08);
+}
+
+.painting-plaque {
+    color: #2d261d;
+    display: -webkit-box;
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    height: 58px;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    letter-spacing: 0.08rem;
+    line-height: 1.2;
+    overflow: hidden;
+    padding: 12px 14px;
+    text-align: center;
+    text-transform: uppercase;
+    width: min(72%, 220px);
+}
+
+@media (min-width: 720px) {
+    .gallery-rail {
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 36px 28px;
+        max-width: 88%;
+    }
+
+    .painting-link {
+        width: 320px;
+    }
+}
+
+@media (min-width: 1330px) {
+    .gallery-rail {
+        gap: 46px 38px;
+        max-width: 1480px;
+    }
+
+    .painting-link {
+        width: 300px;
+    }
+}

@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { GalleryItems } from "../data/gallery";
+import "./Detail.css";
 
 const findDetail = (slug, items = GalleryItems) => {
   for (const item of items) {
@@ -25,32 +26,39 @@ const Detail = () => {
 
   if (!item) {
     return (
-      <main className="detail-page texture-wall detail-page--missing">
-        <h1>This detail page is not on the wall yet.</h1>
-        <Link className="text-link" to="/">
-          Return to gallery
-        </Link>
-      </main>
+      <div className="museum-wall texture-wall">
+        <main className="missing-page">
+          <h1>This detail page is not on the wall yet.</h1>
+          <Link className="text-link" to="/">
+            Return to gallery
+          </Link>
+        </main>
+      </div>
     );
   }
 
   return (
-    <main className="detail-page texture-wall">
-      <Link className="back-link" to="/">
-        Back to gallery
-      </Link>
+    <div className="museum-wall texture-wall">
+      
+      <nav>
+        <Link className="back-link" to="/">
+          Back to gallery
+        </Link>
+      </nav>
 
-      <section className="detail-room" aria-labelledby="detail-title">
-        <img className="detail-image" src={item.image} alt={item.title} />
+      <main className="detail-page">
+        <section className="detail-room" aria-labelledby="detail-title">
+          <img className="detail-image" src={item.image} alt={item.title} />
 
-        <article className="detail-copy">
-          <h1 id="detail-title">{item.title}</h1>
-          <p className="detail-description">{item.description}</p>
-        </article>
-      </section>
+          <article className="detail-copy">
+            <h1 id="detail-title">{item.title}</h1>
+            <p className="detail-description">{item.description}</p>
+          </article>
+        </section>
+      </main>
 
-      <div className="gallery-floor texture-floor" aria-hidden="true" />
-    </main>
+      <div className="museum-floor texture-floor" aria-hidden="true" />
+    </div>
   );
 };
 
