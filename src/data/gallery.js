@@ -5,7 +5,7 @@ export const GalleryItems = [
     title: "About Me",
     shape: "portriat",
     image: "/paintings/about-me.png",
-    description: "Hello there!\n\nThis is a test paragraph.\nt\This line starts with a tab.\n\t\tThis line starts with two tabs.\n\nName:\tJohn Doe\nAge:\t25\nCity:\tJohannesburg\n\nItems:\n\t- Apples\n\t- Bananas\n\t- Oranges\n\nEnd of example."
+    description: "Hello there!\n\nThis is a test paragraph.\n\tThis line starts with a tab.\n\t\tThis line starts with two tabs.\n\nName:\tJohn Doe\nAge:\t25\nCity:\tJohannesburg\n\nItems:\n\t- Apples\n\t- Bananas\n\t- Oranges\n\nEnd of example."
   },
   {
     slug: "art",
