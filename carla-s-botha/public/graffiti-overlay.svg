@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-label="Graffiti overlay">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M118 240 C205 98, 347 98, 412 224 C476 348, 622 340, 696 204 C758 92, 906 102, 1014 232" stroke="#1b2024" stroke-width="28" opacity=".22"/>
+    <path d="M136 278 C252 180, 342 182, 434 284 C552 414, 668 376, 764 244 C850 126, 996 162, 1082 288" stroke="#d33a32" stroke-width="13" opacity=".32"/>
+    <path d="M182 366 C302 286, 418 304, 530 388" stroke="#218f97" stroke-width="18" opacity=".3"/>
+    <path d="M744 354 C838 272, 956 284, 1052 378" stroke="#f0bc34" stroke-width="16" opacity=".28"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" font-weight="900" letter-spacing="-8">
+    <text x="78" y="188" fill="#1d2024" font-size="132" opacity=".22" transform="rotate(-8 78 188)">CARLA</text>
+    <text x="638" y="318" fill="#cf2f34" font-size="104" opacity=".18" transform="rotate(10 638 318)">OPEN</text>
+  </g>
+  <g opacity=".35">
+    <circle cx="238" cy="104" r="8" fill="#d33a32"/>
+    <circle cx="314" cy="418" r="6" fill="#1f8f97"/>
+    <circle cx="914" cy="134" r="7" fill="#f0bc34"/>
+    <circle cx="1036" cy="408" r="5" fill="#1d2024"/>
+    <circle cx="586" cy="134" r="4" fill="#d33a32"/>
+  </g>
+</svg>
