@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from "./pages/Home";
-import GalleryDetail from "./pages/GalleryDetail";
+import Gallery from "./pages/Gallery";
+import Detail from "./pages/Detail";
 
 import "./App.css";
 
@@ -9,8 +9,9 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/gallery/:slug" element={<GalleryDetail />} />
+        <Route path="/" element={<Gallery />} />
+        <Route path="/gallery/:slug" element={<Gallery />} />
+        <Route path="/detail/:slug" element={<Detail />} />
       </Routes>
     </BrowserRouter>
   );
