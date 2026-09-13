@@ -20,7 +20,7 @@ export const GalleryItems = [
         title: "Art Lessons",
         shape: "portriat",
         image: "/paintings/art/art-lessons.png",
-        description: ""
+        description: "dasdasdasdasdasd"
       },
       {
         slug: "prints-paintings",
