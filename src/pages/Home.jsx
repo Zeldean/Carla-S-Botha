@@ -1,14 +1,11 @@
 import { Link } from "react-router-dom";
 import { GalleryItems } from "../data/gallery";
-import "./Home.css"
+import "./Home.css";
 
 const Home = () => {
   return (
-    <div className="museum-page">
+    <div className="museum-page texture-wall">
       <main className="gallery-room" aria-label="Gallery navigation">
-        <div className="ceiling-light ceiling-light--left" />
-        <div className="ceiling-light ceiling-light--right" />
-        <div className="graffiti-overlay" aria-hidden="true" />
         <div className="gallery-rail">
           {GalleryItems.map((item) => (
             <Link
@@ -17,22 +14,18 @@ const Home = () => {
               key={item.slug}
               aria-label={`Open ${item.title}`}
             >
-              <span className="painting-frame">
-                <span className={`painting-art painting-art--${item.palette}`}>
-                  <span className="painting-mark" />
-                </span>
+              <span className="painting-slot">
+                <img className="painting-image" src={item.image} alt={item.title} />
               </span>
-              <span className="painting-caption">
-                <span>{item.label}</span>
-                <strong>{item.title}</strong>
-              </span>
+              <span className="painting-plaque texture-plaque">{item.title}</span>
             </Link>
           ))}
         </div>
-        <div className="gallery-bench" aria-hidden="true" />
+
+        <div className="gallery-floor texture-floor" aria-hidden="true" />
       </main>
     </div>
   );
-}
+};
 
 export default Home;

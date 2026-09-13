@@ -27,11 +27,7 @@ export default function GalleryDetail() {
       </Link>
 
       <section className="detail-room" aria-labelledby="detail-title">
-        <div className={`detail-frame detail-frame--${item.shape}`}>
-          <div className={`detail-art painting-art--${item.palette}`}>
-            <span className="painting-mark" />
-          </div>
-        </div>
+        <img className="detail-image" src={item.image} alt={item.title} />
 
         <article className="detail-copy">
           <p className="museum-kicker">{item.label}</p>
@@ -43,6 +39,8 @@ export default function GalleryDetail() {
           </p>
         </article>
       </section>
+
+      <div className="gallery-floor" aria-hidden="true" />
     </main>
   );
 }
