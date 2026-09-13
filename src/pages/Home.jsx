@@ -7,6 +7,7 @@ const Home = () => {
     <div className="museum-page texture-wall">
       <main className="gallery-room" aria-label="Gallery navigation">
         <div className="gallery-rail">
+          {/* Gallery data drives the wall, so adding/removing paintings happens in one file. */}
           {GalleryItems.map((item) => (
             <Link
               className={`painting-link painting-link--${item.shape}`}

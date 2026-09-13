@@ -19,7 +19,7 @@ export default function GalleryDetail() {
   }
 
   return (
-    <main className="detail-page">
+    <main className="detail-page texture-wall">
       <div className="graffiti-overlay graffiti-overlay--detail" aria-hidden="true" />
 
       <Link className="text-link" to="/">
@@ -40,7 +40,7 @@ export default function GalleryDetail() {
         </article>
       </section>
 
-      <div className="gallery-floor" aria-hidden="true" />
+      <div className="gallery-floor texture-floor" aria-hidden="true" />
     </main>
   );
 }

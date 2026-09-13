@@ -1,3 +1,4 @@
+/* Texture classes keep image/material styling separate from layout rules. */
 .texture-wall {
     background-attachment: fixed;
     background-image: url("/textures/wall.png");
@@ -33,6 +34,7 @@
 }
 
 .gallery-rail {
+    /* The wall uses flex so the number of paintings can change freely. */
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -61,11 +63,13 @@
 }
 
 .painting-slot {
+    /* Equal square slots keep differently-shaped artwork visually aligned. */
     align-items: center;
     aspect-ratio: 1 / 1;
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+    overflow: visible;
     width: 100%;
 }
 
@@ -74,6 +78,12 @@
     max-height: 100%;
     max-width: 100%;
     object-fit: contain;
+    transition: transform 180ms ease;
+}
+
+.painting-link:hover .painting-image,
+.painting-link:focus-visible .painting-image {
+    transform: scale(1.08);
 }
 
 .painting-plaque {

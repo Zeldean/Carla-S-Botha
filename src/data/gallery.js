@@ -1,3 +1,4 @@
+// One item here becomes one painting link on the wall and one detail route.
 export const GalleryItems = [
   {
     slug: "about-me",
