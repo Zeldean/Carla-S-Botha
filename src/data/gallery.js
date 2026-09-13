@@ -12,7 +12,7 @@ export const GalleryItems = [
     pageType: "gallery",
     title: "Art",
     shape: "portriat",
-    image: "/paintings/main/about-me.png",
+    image: "/paintings/art.png",
     items: [
       {
         slug: "art-lessons",
