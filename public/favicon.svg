@@ -1,34 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Carla S Botha copyright mark">
   <defs>
-    <linearGradient id="disc" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+    <linearGradient id="mark" x1="9" y1="9" x2="55" y2="55" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#ff4fb8"/>
-      <stop offset="0.52" stop-color="#39bdf8"/>
+      <stop offset="0.48" stop-color="#39bdf8"/>
       <stop offset="1" stop-color="#ffe24a"/>
-    </linearGradient>
-    <linearGradient id="ring" x1="14" y1="10" x2="50" y2="54" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#fff7d1"/>
-      <stop offset="0.46" stop-color="#ff5dbf"/>
-      <stop offset="1" stop-color="#1976d2"/>
     </linearGradient>
   </defs>
 
-  <rect width="64" height="64" rx="16" fill="#101217"/>
-  <circle cx="32" cy="32" r="25" fill="url(#disc)"/>
-  <circle cx="32" cy="32" r="19" fill="none" stroke="url(#ring)" stroke-width="7"/>
-  <path
+  <circle
+    cx="32"
+    cy="32"
+    r="24"
     fill="none"
-    stroke="#101217"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    stroke-width="8"
-    d="M39.5 23.5a12 12 0 1 0 0 17"
+    stroke="url(#mark)"
+    stroke-width="7"
   />
   <path
     fill="none"
-    stroke="#fff8cf"
+    stroke="url(#mark)"
     stroke-linecap="round"
     stroke-linejoin="round"
-    stroke-width="4"
-    d="M39.5 23.5a12 12 0 1 0 0 17"
+    stroke-width="8"
+    d="M39.5 21.5a13.5 13.5 0 1 0 0 21"
   />
 </svg>
