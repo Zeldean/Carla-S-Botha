@@ -317,7 +317,7 @@ The person editing the JSON files isn't a developer, so the setup has to protect
 - **Desktop (≥1330px):** a CSS grid. By default artworks auto-flow, each with an optional `nudge` (small offset, ±3° rotation) so the wall looks hand-hung.
   - **Improvement:** an optional `place: { col, row, span }` pins a piece to a specific grid cell. Rooms work out of the box, and once the final artworks arrive each wall can be hand-curated without breaking other screen sizes. `place` is ignored below 1330px.
 - **Tablet (720–1329px):** 2–3 columns, with `nudge` at half strength.
-- **Phone (<720px):** 1 column, plus 2 columns for consecutive `s` pieces. Rows alternate left and right alignment, and shapes, sizes and plaques stay, so it never looks like a list of identical buttons (design §13.5).
+- **Phone (<720px):** 1 column, every artwork centred (owner preference, 2026-10-15: the alternating left/right rows read as misaligned). Shapes, plaques and per-room atmosphere carry the gallery feel (design §13.5).
 - No horizontal scroll at any width.
 
 ### 7.3 Plaque (C5)

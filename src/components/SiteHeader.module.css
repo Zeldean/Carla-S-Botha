@@ -1,3 +1,4 @@
+/* Below desktop: one row, logo · language · burger; the menu drops down underneath. */
 .header {
     align-items: center;
     background: rgba(23, 24, 26, 0.94);
@@ -5,10 +6,9 @@
     display: grid;
     gap: var(--space-2) var(--space-3);
     grid-template-areas:
-        "brand tools"
-        "menu  menu"
-        "nav   nav";
-    grid-template-columns: 1fr auto;
+        "brand tools menu"
+        "nav   nav   nav";
+    grid-template-columns: 1fr auto auto;
     padding: var(--space-2) var(--space-3);
     position: sticky;
     top: 0;
@@ -21,37 +21,56 @@
     grid-area: brand;
     letter-spacing: 0.04rem;
     text-decoration: none;
+    white-space: nowrap;
+}
+
+.tools {
+    align-items: center;
+    display: flex;
+    gap: var(--space-2);
+    grid-area: tools;
 }
 
 .menuButton {
+    align-items: center;
     background: transparent;
     border: 2px solid var(--color-text);
     border-radius: var(--radius);
     color: var(--color-text);
     cursor: pointer;
-    font: 800 0.85rem/1 var(--font-body);
+    display: inline-flex;
     grid-area: menu;
-    justify-self: start;
-    letter-spacing: 0.08rem;
-    min-height: 36px;
-    padding: var(--space-2) var(--space-3);
-    text-transform: uppercase;
+    height: 40px;
+    justify-content: center;
+    width: 44px;
+}
+
+.burger {
+    fill: none;
+    height: 24px;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-width: 2.2;
+    width: 24px;
 }
 
 .nav {
     display: none;
     grid-area: nav;
+    padding-bottom: var(--space-2);
 }
 
 .nav[data-open="true"] {
-    display: block;
+    display: grid;
+    gap: var(--space-2);
+    justify-items: start;
 }
 
 .navList {
     display: grid;
     gap: var(--space-1);
     list-style: none;
-    padding-bottom: var(--space-2);
+    width: 100%;
 }
 
 .navLink {
@@ -71,13 +90,6 @@
     box-shadow: inset 4px 0 0 var(--color-accent);
 }
 
-.tools {
-    align-items: center;
-    display: flex;
-    gap: var(--space-2);
-    grid-area: tools;
-}
-
 .whatsapp {
     background: var(--color-whatsapp);
     border-radius: 999px;
@@ -88,6 +100,11 @@
     text-decoration: none;
 }
 
+.desktopOnly {
+    display: none;
+}
+
+/* Desktop: unchanged single row, logo · sections · language + WhatsApp. */
 @media (min-width: 1330px) {
     .header {
         grid-template-areas: "brand nav tools";
@@ -95,13 +112,20 @@
         padding: var(--space-2) var(--space-5);
     }
 
-    .menuButton {
+    .menuButton,
+    .menuOnly {
         display: none;
     }
 
+    .desktopOnly {
+        display: inline-block;
+    }
+
     .nav,
-    .nav[data-open="false"] {
+    .nav[data-open="false"],
+    .nav[data-open="true"] {
         display: block;
+        padding-bottom: 0;
     }
 
     .navList {
