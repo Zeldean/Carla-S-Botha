@@ -55,7 +55,7 @@
 | C9 | design §7.5, §8.3, §10.3 | The product schema has no field for dimensions, medium, availability or intended use. | Extended schema (§5.4). |
 | C10 | design §7.3, §9.4, §9.5, §12 | There's no WhatsApp call-to-action component. | `EnquiryCTA` with message templates (§11, D7). |
 | C11 | design §13.6 / code `.detail-copy` | Long text is trapped in an inner scroll box that keyboards can't reach. | Normal document scroll (§7.6). |
-| C12 | design §12 / code `.museum-floor` (`position: fixed`) | The fixed floor would cover the footer and costs 100px of every phone screen. | The floor becomes a static band. The footer sits below it (§7.1). |
+| C12 | design §12 / code `.museum-floor` (`position: fixed`) | The fixed floor would cover the footer and costs 100px of every phone screen. | **Owner decision (2026-10-15):** the floor stays fixed to the viewport bottom on every page, in front of the wall content. Main content gets bottom padding equal to the floor height, and the footer scrolls up over the floor at the end of the page (§7.1). |
 | C13 | design §12 / tech §3.2 | A client-only SPA gives every page the same generic WhatsApp link preview. | Prerender every route at build time (§4.2). |
 | C14 | design §3.2 / tech §3.3 | Some titles are AF-only or EN-only. | **D2:** every title stores both `af` and `en`. If they're identical (e.g. "Mindfulness"), it's shown once (§8.2). |
 | C15 | design §6.2, §5.3 / tech §3.5 | No fonts chosen; Arial everywhere. | **D6:** Bungee / Caveat / Nunito (§7.7). |
@@ -307,8 +307,8 @@ The person editing the JSON files isn't a developer, so the setup has to protect
 ### 7.1 Shell (C12)
 
 - Wall: a per-room colour token with the `wall.png` texture blended over it. It's painted with a fixed `::before` instead of `background-attachment: fixed`, which iOS ignores.
-- Floor: a static band at the bottom of rooms.
-- Footer: below the floor, visually quiet.
+- Floor: fixed to the viewport bottom on every page, layered in front of the wall content, so artworks pass behind its edge.
+- Footer: normal flow, layered above the floor, and the same height as the floor. Once the page is scrolled to the end it lands exactly on the floor. There's no full-width bar: brand, links and contact are separate semi-transparent blocks with the planks visible around them. On phones the tagline is hidden so it still fits.
 
 ### 7.2 Composition (D11: approved, with one improvement)
 

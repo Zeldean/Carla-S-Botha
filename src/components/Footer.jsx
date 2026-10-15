@@ -4,7 +4,10 @@ import { whatsappUrl } from "../lib/whatsapp";
 import { Localized, Title } from "./Text";
 import styles from "./Footer.module.css";
 
-/** Brand, contact, socials and the main sections (design §12). Contact rows appear once set in site.json. */
+/**
+ * Brand, contact, socials and the main sections (design §12). Contact rows appear once set in site.json.
+ * Sits on the floor graphic: separate translucent blocks, same height as the floor.
+ */
 export default function Footer() {
   const { email, phone } = site.contact;
   const whatsapp = whatsappUrl("general");
@@ -12,12 +15,12 @@ export default function Footer() {
 
   return (
     <footer className={styles.footer}>
-      <div className={styles.brand}>
+      <div className={`${styles.block} ${styles.brand}`}>
         <p className={styles.name}>{site.brand}</p>
         <Localized as="p" value={site.tagline} />
       </div>
 
-      <nav aria-label={site.brand}>
+      <nav className={styles.block} aria-label={site.brand}>
         <ul className={styles.list}>
           {site.nav.map((slug) => (
             <li key={slug}>
@@ -30,8 +33,8 @@ export default function Footer() {
       </nav>
 
       {hasContact && (
-        <div>
-          <h2 className={styles.heading}>
+        <div className={styles.block}>
+          <h2 className="visually-hidden">
             <Localized value={ui.contact} />
           </h2>
           <ul className={styles.list}>

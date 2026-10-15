@@ -1,27 +1,35 @@
 .footer {
-    background: var(--color-bg);
+    align-items: center;
     color: var(--color-text);
-    display: grid;
-    font-size: 0.9rem;
-    gap: var(--space-4);
-    padding: var(--space-5) var(--space-3);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    gap: var(--space-2) var(--space-3);
+    justify-content: center;
+    /* Same height as the floor it covers; grows only if the content can't fit (narrow phones). */
+    min-height: var(--floor-height);
+    padding: var(--space-2) var(--space-3);
+}
+
+/* Translucent blocks around each group, so the floor stays visible between and behind them. */
+.block {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    background: rgba(23, 24, 26, 0.62);
+    border-radius: var(--radius);
+    padding: var(--space-2) var(--space-3);
 }
 
 .name {
     font-family: var(--font-display);
-    font-size: 1rem;
-}
-
-.heading {
-    font-size: 0.8rem;
-    letter-spacing: 0.08rem;
-    margin-bottom: var(--space-2);
-    text-transform: uppercase;
+    font-size: 0.95rem;
+    line-height: 1.2;
 }
 
 .list {
-    display: grid;
-    gap: var(--space-1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
     list-style: none;
 }
 
@@ -29,9 +37,9 @@
     text-underline-offset: 3px;
 }
 
-@media (min-width: 720px) {
-    .footer {
-        grid-template-columns: 2fr 2fr 1fr;
-        padding: var(--space-5);
+@media (max-width: 719px) {
+    /* Keep the footer close to the floor height on phones; the tagline also shows on the home wall. */
+    .brand p:not(.name) {
+        display: none;
     }
 }

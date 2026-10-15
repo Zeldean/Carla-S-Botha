@@ -45,19 +45,21 @@
 
 .slot {
     /* Every artwork gets its own invisible square display area (design §2.5). */
-    align-items: center;
     aspect-ratio: 1 / 1;
-    display: flex;
-    justify-content: center;
+    display: block;
     margin-bottom: 20px;
+    position: relative;
     width: 100%;
 }
 
+/* Absolutely positioned so the square is resolved the same way in every browser
+   (Chrome ignores `max-height: 100%` against an aspect-ratio height). */
 .image {
-    max-height: 100%;
-    max-width: 100%;
+    height: 100%;
+    inset: 0;
     object-fit: contain;
-    width: auto;
+    position: absolute;
+    width: 100%;
 }
 
 .plaque {
@@ -69,11 +71,6 @@
     text-align: center;
     text-transform: uppercase;
     width: min(80%, 240px);
-}
-
-.floor {
-    flex: none;
-    height: var(--floor-height);
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -10,6 +10,23 @@
     flex-direction: column;
 }
 
+/* In front of the wall content (artworks pass behind the floor edge when scrolling). */
+.floor {
+    bottom: 0;
+    height: var(--floor-height);
+    left: 0;
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    z-index: 5;
+}
+
+/* Normal flow, above the floor: scrolls up and covers it at the end of the page. */
+.footer {
+    position: relative;
+    z-index: 6;
+}
+
 .skipLink {
     background: var(--color-focus);
     color: var(--color-ink);

@@ -30,7 +30,11 @@ export default function MuseumLayout({ children }) {
       <main id="main" className={styles.main}>
         {children}
       </main>
-      <Footer />
+      {/* Fixed to the viewport bottom on every page; the footer slides up over it at the end. */}
+      <div className={`${styles.floor} texture-floor`} aria-hidden="true" />
+      <div className={styles.footer}>
+        <Footer />
+      </div>
     </div>
   );
 }

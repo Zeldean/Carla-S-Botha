@@ -53,8 +53,6 @@ export default function Room({ room }) {
           );
         })}
       </ul>
-
-      <div className={`${styles.floor} texture-floor`} aria-hidden="true" />
     </div>
   );
 }
