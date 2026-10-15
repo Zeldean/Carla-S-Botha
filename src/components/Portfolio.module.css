@@ -1,0 +1,152 @@
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    justify-content: center;
+}
+
+.filter {
+    background: var(--color-plaque);
+    border: 2px solid var(--color-ink);
+    border-radius: 999px;
+    color: var(--color-ink);
+    cursor: pointer;
+    font: 700 0.9rem/1 var(--font-body);
+    min-height: 36px;
+    padding: var(--space-2) var(--space-3);
+}
+
+.filter[aria-pressed="true"] {
+    background: var(--color-ink);
+    color: var(--color-text);
+}
+
+/* Columns let works keep their own shapes, like a salon-style wall (design §2.4, §7.4). */
+.wall {
+    column-gap: var(--space-5);
+    columns: 1;
+    list-style: none;
+}
+
+.work {
+    break-inside: avoid;
+    margin-bottom: var(--space-5);
+}
+
+.work figure {
+    display: grid;
+    gap: var(--space-3);
+    justify-items: center;
+}
+
+.frame {
+    background: none;
+    border: 0;
+    cursor: zoom-in;
+    display: block;
+    padding: 0;
+    width: 100%;
+}
+
+.image {
+    filter: drop-shadow(0 10px 12px rgba(20, 16, 10, 0.38));
+    margin: 0 auto;
+    width: 100%;
+}
+
+.frame:focus-visible {
+    outline: none;
+}
+
+.frame:focus-visible .image {
+    filter:
+        drop-shadow(0 0 3px var(--color-focus))
+        drop-shadow(0 0 6px var(--color-focus))
+        drop-shadow(0 10px 12px rgba(20, 16, 10, 0.38));
+}
+
+.caption {
+    display: grid;
+    gap: 2px;
+    line-height: 1.3;
+    max-width: 300px;
+    padding: var(--space-2) var(--space-3);
+    text-align: center;
+}
+
+.title {
+    font-size: 0.95rem;
+}
+
+.meta {
+    font-size: 0.8rem;
+    opacity: 0.85;
+}
+
+.description {
+    font-size: 0.85rem;
+}
+
+.forSale {
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-top: var(--space-1);
+    text-underline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------- larger view */
+
+.viewer {
+    background: transparent;
+    border: 0;
+    margin: auto;
+    max-height: 100vh;
+    max-width: 100vw;
+    padding: var(--space-3);
+}
+
+.viewer::backdrop {
+    background: rgba(12, 12, 14, 0.88);
+}
+
+.viewerInner {
+    display: grid;
+    gap: var(--space-3);
+    justify-items: center;
+}
+
+/* Leave room for the caption and buttons so the dialog never needs a scrollbar. */
+.viewerImage {
+    max-height: max(180px, calc(100vh - 260px));
+    max-width: min(92vw, 1100px);
+    object-fit: contain;
+    width: auto;
+}
+
+.viewerControls {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.viewerControls button {
+    background: var(--color-plaque);
+    border: 0;
+    border-radius: 999px;
+    color: var(--color-ink);
+    cursor: pointer;
+    font: 800 0.9rem/1 var(--font-body);
+    min-height: 40px;
+    padding: var(--space-2) var(--space-4);
+}
+
+@media (min-width: 720px) {
+    .wall {
+        columns: 2;
+    }
+}
+
+@media (min-width: 1330px) {
+    .wall {
+        columns: 3;
+    }
+}

@@ -2,7 +2,7 @@ import Catalogue from "../components/Catalogue";
 import FreebieList from "../components/FreebieList";
 import InfoPage from "../components/InfoPage";
 import NotFound from "../components/NotFound";
-import PageView from "../components/PageView";
+import Portfolio from "../components/Portfolio";
 import Room from "../components/Room";
 import { getEntry, site, titleText } from "../lib/content";
 import { buildMeta } from "../lib/meta";
@@ -23,5 +23,6 @@ export default function Destination({ params }) {
   if (entry.type === "info") return <InfoPage key={entry.slug} page={entry} />;
   if (entry.type === "catalogue") return <Catalogue key={entry.slug} page={entry} />;
   if (entry.type === "freebies") return <FreebieList key={entry.slug} page={entry} />;
-  return <PageView key={entry.slug} page={entry} />;
+  if (entry.type === "portfolio") return <Portfolio key={entry.slug} page={entry} />;
+  return <NotFound />;
 }

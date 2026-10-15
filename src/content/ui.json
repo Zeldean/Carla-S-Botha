@@ -110,5 +110,57 @@
   "audience": {
     "af": "Vir",
     "en": "For"
+  },
+  "all": {
+    "af": "Alles",
+    "en": "All"
+  },
+  "kindPainting": {
+    "af": "Skilderye",
+    "en": "Paintings"
+  },
+  "kindDrawing": {
+    "af": "Tekeninge",
+    "en": "Drawings"
+  },
+  "kindAceo": {
+    "af": "ACEO",
+    "en": "ACEO"
+  },
+  "kindIllustration": {
+    "af": "Illustrasies",
+    "en": "Illustrations"
+  },
+  "kindOther": {
+    "af": "Ander",
+    "en": "Other"
+  },
+  "viewLarger": {
+    "af": "Bekyk groter",
+    "en": "View larger"
+  },
+  "close": {
+    "af": "Maak toe",
+    "en": "Close"
+  },
+  "previous": {
+    "af": "Vorige",
+    "en": "Previous"
+  },
+  "next": {
+    "af": "Volgende",
+    "en": "Next"
+  },
+  "availableToBuy": {
+    "af": "Te koop in Drukke en Skilderye",
+    "en": "Available in Prints and Paintings"
+  },
+  "portfolioComingSoon": {
+    "af": "Die eerste werke word nog opgehang.",
+    "en": "The first works are still being hung."
+  },
+  "filterByKind": {
+    "af": "Wys",
+    "en": "Show"
   }
 }

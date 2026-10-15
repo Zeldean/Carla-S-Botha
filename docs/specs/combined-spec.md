@@ -640,5 +640,10 @@ After that:
    - The download button shows the file type and size, which the content loader measures at build time. Local files download directly; external links open in a new tab.
    - Drafts (`published: false`) are hidden, and empty categories show a coming-soon card.
    - Catalogue, freebies and portfolio pages share `CollectionHeader` and `Collection.module.css`.
-7. `Portfolio`.
+7. `Portfolio`. **Done 2026-10-15.**
+   - Works hang at their own shapes in a 1/2/3-column layout, newest first, each with a museum-label caption (title, medium · year, description).
+   - Filter chips by kind appear only when more than one kind exists.
+   - A native `<dialog>` viewer shows a larger image, with previous/next buttons, arrow keys, Escape and backdrop click; focus returns to the thumbnail on close.
+   - A "Te koop in Drukke en Skilderye" link appears only while the linked product is available.
+   - With every page type having its own component, the interim `PageView` is removed.
 8. Accessibility and Lighthouse audit, then content fill as the blockers clear.

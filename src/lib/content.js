@@ -20,6 +20,18 @@ export const freebieCategoryTitle = (category) =>
 export const publishedFreebies = (category) =>
   Object.values(freebies).filter((freebie) => freebie.published && (!category || freebie.category === category));
 
+/** Published portfolio works, newest first (works without a year last). */
+export const publishedWorks = () =>
+  Object.values(works)
+    .filter((work) => work.published)
+    .sort((a, b) => (b.year ?? -Infinity) - (a.year ?? -Infinity));
+
+/** The product a work links to, only while it can actually be bought. */
+export const availableProduct = (work) => {
+  const product = work.product && products[work.product];
+  return product && product.published && product.status !== "sold" ? product : null;
+};
+
 /** 2_400_000 → "2.3 MB", 320_000 → "313 KB". */
 export const formatBytes = (bytes) =>
   bytes >= 1024 * 1024 ? `${(bytes / 1024 / 1024).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`;
