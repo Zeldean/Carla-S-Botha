@@ -1,0 +1,187 @@
+.page {
+    flex: 1;
+    padding: var(--space-4) var(--space-3) var(--space-6);
+}
+
+.layout {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0 auto;
+    max-width: 1180px;
+}
+
+.aside {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: center;
+}
+
+.image {
+    filter: drop-shadow(0 10px 12px rgba(20, 16, 10, 0.38));
+    max-height: 46vh;
+    object-fit: contain;
+    width: auto;
+}
+
+/* Phone: the enquiry button sits under the artwork (top) and again after the text. */
+.endCta {
+    margin-top: var(--space-5);
+}
+
+/* Long text scrolls with the page, not in its own box (spec §7.6). */
+.copy {
+    background: rgba(255, 250, 240, 0.92);
+    border-radius: var(--radius);
+    box-shadow: 0 10px 24px rgba(32, 24, 16, 0.22);
+    max-width: var(--measure);
+    padding: var(--space-4);
+}
+
+.title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 7vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: var(--space-4);
+}
+
+.note {
+    font-style: italic;
+    margin-bottom: var(--space-3);
+}
+
+/* ---------------------------------------------------------------- body typography */
+
+.body {
+    display: grid;
+    gap: var(--space-5);
+}
+
+.body section {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.body h2 {
+    font-size: 1.35rem;
+    line-height: 1.2;
+}
+
+.body h3 {
+    font-size: 1.1rem;
+    margin-top: var(--space-2);
+}
+
+.body ul,
+.body ol {
+    display: grid;
+    gap: var(--space-1);
+    padding-left: var(--space-4);
+}
+
+.body a {
+    font-weight: 700;
+    text-underline-offset: 3px;
+}
+
+/* Price lists (design §13.6): real tables, prices right-aligned and lined up. */
+.body table {
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+    width: 100%;
+}
+
+.body th,
+.body td {
+    border-bottom: 1px solid rgba(45, 38, 29, 0.2);
+    padding: var(--space-2);
+    text-align: left;
+    vertical-align: top;
+}
+
+.body th {
+    border-bottom-width: 2px;
+    font-size: 0.85rem;
+    letter-spacing: 0.04rem;
+    text-transform: uppercase;
+}
+
+.body th:last-child,
+.body td:last-child {
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- personal layout (About, design §6.2) */
+
+.page[data-layout="personal"] .copy {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+}
+
+.page[data-layout="personal"] .title {
+    margin-bottom: var(--space-3);
+}
+
+/* Each section is its own framed panel. */
+.page[data-layout="personal"] .body section {
+    background: rgba(255, 250, 240, 0.94);
+    border: 6px double rgba(70, 55, 35, 0.55);
+    border-radius: 4px;
+    box-shadow: 0 10px 24px rgba(32, 24, 16, 0.22);
+    padding: var(--space-4);
+}
+
+.page[data-layout="personal"] .body section:nth-child(even) {
+    rotate: 0.6deg;
+}
+
+.page[data-layout="personal"] .body section:nth-child(odd) {
+    rotate: -0.4deg;
+}
+
+/* A paragraph that is only bold text ("Onderwyser. Kunstenaar. …") becomes a handwritten line. */
+.page[data-layout="personal"] .body p > strong:only-child {
+    display: block;
+    font-family: var(--font-hand);
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 400;
+    line-height: 1.15;
+}
+
+.page[data-layout="personal"] .body h2 {
+    font-family: var(--font-hand);
+    font-size: 1.9rem;
+    font-weight: 400;
+}
+
+/* ---------------------------------------------------------------- desktop */
+
+@media (min-width: 720px) {
+    .page {
+        padding: var(--space-5);
+    }
+
+    .layout {
+        align-items: start;
+        gap: var(--space-6);
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    }
+
+    /* Artwork and enquiry button stay in view while reading. */
+    .aside {
+        position: sticky;
+        top: 96px;
+    }
+
+    /* Fit artwork + button between the sticky header and the fixed floor, so the
+       button is never hidden behind the floor on short screens. */
+    .image {
+        max-height: max(200px, calc(100vh - var(--floor-height) - 250px));
+    }
+
+    .endCta {
+        display: none;
+    }
+}

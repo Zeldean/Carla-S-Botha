@@ -1,18 +1,17 @@
 import { useLocation } from "react-router";
-import { parentRoom, ui } from "../lib/content";
-import { whatsappUrl } from "../lib/whatsapp";
+import { parentRoom } from "../lib/content";
 import Breadcrumbs from "./Breadcrumbs";
-import Markdown from "./Markdown";
+import EnquiryCTA from "./EnquiryCTA";
+import PageBody from "./PageBody";
 import ResponsiveImage from "./ResponsiveImage";
-import { Localized, Title } from "./Text";
+import { Title } from "./Text";
 import styles from "./PageView.module.css";
 
-// Interim page view for every page type. Task 4 turns it into InfoPage + EnquiryCTA;
-// catalogue, freebies and portfolio get their own components in tasks 5–7.
+// Interim view for catalogue, freebies and portfolio pages until they get their own
+// components (tasks 5–7). Info pages use InfoPage.
 export default function PageView({ page }) {
   const location = useLocation();
   const parent = parentRoom(page, location.state?.from);
-  const enquiry = page.cta && whatsappUrl(page.cta.template, { page: page.title.en });
 
   return (
     <article className={styles.page}>
@@ -31,46 +30,10 @@ export default function PageView({ page }) {
           <h1 className={styles.title} tabIndex={-1}>
             <Title title={page.title} />
           </h1>
-          <PageBody page={page} />
-          {enquiry && (
-            <a className={styles.cta} href={enquiry} target="_blank" rel="noopener noreferrer">
-              <Localized value={page.cta.label} />
-            </a>
-          )}
+          <PageBody page={page} className={styles.body} noteClassName={styles.note} />
+          <EnquiryCTA cta={page.cta} page={page} className={styles.cta} />
         </div>
       </div>
     </article>
-  );
-}
-
-/** Both languages when available (CSS shows the toggled one); otherwise the one there is, plus a note. */
-function PageBody({ page }) {
-  const { af, en } = page.body;
-
-  if (af && en) {
-    return (
-      <>
-        <div className={styles.body} lang="af" data-l="af"><Markdown>{af}</Markdown></div>
-        <div className={styles.body} lang="en" data-l="en"><Markdown>{en}</Markdown></div>
-      </>
-    );
-  }
-
-  if (af || en) {
-    const only = af ? "af" : "en";
-    const other = af ? "en" : "af";
-    const note = af ? ui.onlyAfrikaans : ui.onlyEnglish;
-    return (
-      <>
-        <p className={styles.note} lang={other} data-l={other}>{note[other]}</p>
-        <div className={styles.body} lang={only}><Markdown>{af ?? en}</Markdown></div>
-      </>
-    );
-  }
-
-  return (
-    <p className={styles.note}>
-      <Localized value={page.type === "info" ? ui.roomSetup : ui.comingSoon} />
-    </p>
   );
 }

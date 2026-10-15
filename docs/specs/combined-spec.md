@@ -626,7 +626,10 @@ Each task leaves the site deployable.
 
 After that:
 
-4. `InfoPage` + `EnquiryCTA` + Markdown. About first, then the services.
+4. `InfoPage` + `EnquiryCTA` + Markdown. About first, then the services. **Done 2026-10-15.**
+   - Markdown bodies are split into one `<section>` per `##`. Tables get a caption from the heading above them. Both are small rehype plugins in `src/lib/rehype.js`.
+   - On desktop the artwork and enquiry button are sticky beside the text, with the artwork height capped so the button never ends up behind the floor. On phones the button sits under the artwork and again after the text.
+   - `layout: personal` frames each section and turns bold-only lines and headings into the handwritten font.
 5. `Catalogue` / `ProductCard`.
 6. `FreebieList`.
 7. `Portfolio`.

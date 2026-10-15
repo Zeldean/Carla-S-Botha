@@ -1,3 +1,4 @@
+import InfoPage from "../components/InfoPage";
 import NotFound from "../components/NotFound";
 import PageView from "../components/PageView";
 import Room from "../components/Room";
@@ -16,5 +17,7 @@ export default function Destination({ params }) {
   const entry = getEntry(params.slug);
   // "/home" isn't a URL: the home room lives at "/".
   if (!entry || entry.slug === "home") return <NotFound />;
-  return entry.kind === "room" ? <Room key={entry.slug} room={entry} /> : <PageView key={entry.slug} page={entry} />;
+  if (entry.kind === "room") return <Room key={entry.slug} room={entry} />;
+  if (entry.type === "info") return <InfoPage key={entry.slug} page={entry} />;
+  return <PageView key={entry.slug} page={entry} />;
 }

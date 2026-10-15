@@ -1,0 +1,32 @@
+.cta {
+    align-items: center;
+    background: var(--color-whatsapp);
+    border-radius: 999px;
+    box-shadow: 0 6px 14px rgba(20, 16, 10, 0.25);
+    color: #fff;
+    display: inline-flex;
+    font-weight: 800;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    text-decoration: none;
+}
+
+.icon {
+    fill: none;
+    flex: none;
+    height: 22px;
+    stroke: currentColor;
+    stroke-linejoin: round;
+    stroke-width: 1.6;
+    width: 22px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .cta {
+        transition: transform 150ms ease;
+    }
+
+    .cta:hover {
+        transform: translateY(-2px);
+    }
+}
