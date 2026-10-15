@@ -12,6 +12,18 @@ export const catalogueProducts = (category) =>
     (product) => product.published && product.status !== "sold" && (!category || product.category === category),
   );
 
+/** Freebie category → its section title. */
+export const freebieCategoryTitle = (category) =>
+  ({ mindfulness: rooms.mindfulness.title, art: rooms.art.title, education: ui.education })[category];
+
+/** Published freebies, optionally one category. */
+export const publishedFreebies = (category) =>
+  Object.values(freebies).filter((freebie) => freebie.published && (!category || freebie.category === category));
+
+/** 2_400_000 → "2.3 MB", 320_000 → "313 KB". */
+export const formatBytes = (bytes) =>
+  bytes >= 1024 * 1024 ? `${(bytes / 1024 / 1024).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`;
+
 /** 1200 → "R1 200" (South African style, non-breaking space). null → null. */
 export const formatPrice = (price) =>
   price == null ? null : `R${String(price).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0")}`;

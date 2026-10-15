@@ -7,7 +7,8 @@
     --color-ink: #2d261d;          /* text on wall and plaques */
     --color-wall: #a6a497;         /* average of wall.png, so text stays readable if it fails to load */
     --color-plaque: #eee3cf;
-    --color-accent: #ff2e88;       /* hot pink */
+    --color-accent: #ff2e88;       /* hot pink: accents, outlines */
+    --color-accent-strong: #c8005a; /* deeper pink: button backgrounds with white text (5.8:1) */
     --color-focus: #ffd400;        /* sunshine yellow */
     --color-whatsapp: #1f7a3d;
 

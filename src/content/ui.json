@@ -94,5 +94,21 @@
   "noProductsYet": {
     "af": "Produkte kom binnekort hierheen. Blaai solank deur die WhatsApp-katalogus.",
     "en": "Products are coming here soon. In the meantime, browse the WhatsApp catalogue."
+  },
+  "education": {
+    "af": "Onderwys",
+    "en": "Education"
+  },
+  "moreFreebies": {
+    "af": "Meer freebies",
+    "en": "More freebies"
+  },
+  "freebiesComingSoon": {
+    "af": "Die eerste geskenkies word nog toegedraai.",
+    "en": "The first little gifts are still being wrapped."
+  },
+  "audience": {
+    "af": "Vir",
+    "en": "For"
   }
 }

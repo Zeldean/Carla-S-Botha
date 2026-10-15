@@ -251,9 +251,20 @@ export function loadContent(root) {
   }
 
   for (const freebie of Object.values(freebies)) {
-    if (!/^https?:\/\//.test(freebie.file) && !fs.existsSync(path.join(publicDir, freebie.file))) {
+    const external = /^https?:\/\//.test(freebie.file);
+    const localFile = path.join(publicDir, freebie.file);
+    const found = external || fs.existsSync(localFile);
+    if (!found) {
       errors.push(`${freebie.source} → the download "${freebie.file}" doesn't exist in public/. Upload it, or use a full https:// link.`);
     }
+    // Type and size for the download button ("PDF, 2.4 MB"); size is only known for files in public/.
+    const ext = path.extname(external ? new URL(freebie.file).pathname : freebie.file).slice(1);
+    freebie.download = {
+      href: external ? freebie.file : `/${freebie.file.replace(/^\//, "")}`,
+      external,
+      format: ext ? ext.toUpperCase() : null,
+      size: !external && found ? fs.statSync(localFile).size : null,
+    };
   }
 
   if (site) {

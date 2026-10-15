@@ -635,6 +635,10 @@ After that:
    - Sold items are hidden. Prices are formatted as "R1 200"; `null` shows "Prys op navraag / Price on enquiry".
    - Choosing an option updates the prefilled WhatsApp message.
    - An empty category shows a "coming soon" note, plus that category's WhatsApp catalogue link (falling back to `all`).
-6. `FreebieList`.
+6. `FreebieList`. **Done 2026-10-15.**
+   - Both pages read the same freebie files: Freebies groups them into Mindfulness, Kuns / Art and Onderwys / Education; Mindfulness Freebies filters to one category and links back to the main page.
+   - The download button shows the file type and size, which the content loader measures at build time. Local files download directly; external links open in a new tab.
+   - Drafts (`published: false`) are hidden, and empty categories show a coming-soon card.
+   - Catalogue, freebies and portfolio pages share `CollectionHeader` and `Collection.module.css`.
 7. `Portfolio`.
 8. Accessibility and Lighthouse audit, then content fill as the blockers clear.

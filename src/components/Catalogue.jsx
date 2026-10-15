@@ -1,11 +1,10 @@
-import { Link, useLocation } from "react-router";
-import { CATEGORY_ROOMS, catalogueProducts, pages, parentRoom, rooms, site, ui } from "../lib/content";
-import Breadcrumbs from "./Breadcrumbs";
-import Markdown from "./Markdown";
+import { Link } from "react-router";
+import { CATEGORY_ROOMS, catalogueProducts, pages, rooms, site, ui } from "../lib/content";
+import CollectionHeader from "./CollectionHeader";
 import ProductCard from "./ProductCard";
 import ResponsiveImage from "./ResponsiveImage";
 import { Localized, Title } from "./Text";
-import styles from "./Catalogue.module.css";
+import styles from "./Collection.module.css";
 
 /**
  * Prints and Paintings, Mindfulness Products and the Shop: one product pool, filtered by
@@ -13,33 +12,11 @@ import styles from "./Catalogue.module.css";
  * still show, with that category's WhatsApp catalogue (D3).
  */
 export default function Catalogue({ page }) {
-  const location = useLocation();
-  const parent = parentRoom(page, location.state?.from);
   const categories = page.filter ? [page.filter.category] : Object.keys(CATEGORY_ROOMS);
-  const intro = page.body.af ?? page.body.en;
 
   return (
     <article className={styles.page}>
-      <Breadcrumbs parent={parent} current={page} />
-
-      <header className={styles.header}>
-        <h1 className={styles.title} tabIndex={-1}>
-          <Title title={page.title} />
-        </h1>
-        <Localized as="p" className={styles.description} value={page.description} />
-        {intro && (
-          <div className={styles.intro}>
-            {page.body.af && page.body.en ? (
-              <>
-                <div lang="af" data-l="af"><Markdown>{page.body.af}</Markdown></div>
-                <div lang="en" data-l="en"><Markdown>{page.body.en}</Markdown></div>
-              </>
-            ) : (
-              <Markdown>{intro}</Markdown>
-            )}
-          </div>
-        )}
-      </header>
+      <CollectionHeader page={page} />
 
       {categories.map((category) => (
         <CategorySection key={category} category={category} showHeading={!page.filter} />

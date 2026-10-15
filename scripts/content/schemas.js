@@ -3,6 +3,7 @@
 //   - the editor JSON Schemas in /schemas (scripts/build-schemas.js)
 // Objects are strict, so a misspelt field ("prise") is reported instead of silently ignored.
 import { z } from "zod";
+import { FREEBIE_CATEGORIES } from "../../src/lib/constants.js";
 
 const SLUG_HINT = 'use lowercase words joined by dashes, like "art-lessons"';
 const LOCALIZED_HINT = 'must be text, or both languages like { "af": "…", "en": "…" }';
@@ -88,7 +89,7 @@ export const room = z.strictObject({
 // ---------------------------------------------------------------- pages
 
 export const PRODUCT_CATEGORIES = ["art", "mindfulness", "c4"];
-export const FREEBIE_CATEGORIES = ["mindfulness", "art", "education"];
+export { FREEBIE_CATEGORIES };
 export const TEMPLATES = ["general", "enquiry", "product", "lessons", "speech"];
 
 const cta = z.strictObject({

@@ -1,0 +1,69 @@
+.card {
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.cover {
+    aspect-ratio: 4 / 3;
+    background: rgba(255, 255, 255, 0.55);
+    position: relative;
+}
+
+.image {
+    height: 100%;
+    inset: 0;
+    object-fit: contain;
+    padding: var(--space-2);
+    position: absolute;
+    width: 100%;
+}
+
+.body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-3);
+}
+
+.title {
+    font-size: 1.15rem;
+    line-height: 1.2;
+}
+
+.audience {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+/* A gift, so the button gets the brand's pink rather than WhatsApp green. */
+.download {
+    align-items: baseline;
+    background: var(--color-accent-strong);
+    border-radius: 999px;
+    color: #fff;
+    display: flex;
+    font-weight: 800;
+    gap: var(--space-2);
+    justify-content: center;
+    margin-top: auto;
+    padding: var(--space-2) var(--space-3);
+    text-decoration: none;
+}
+
+.details {
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+.more {
+    background: var(--color-plaque);
+    border-radius: var(--radius);
+    font-weight: 800;
+    justify-self: start;
+    padding: var(--space-2) var(--space-3);
+    text-decoration: none;
+}
