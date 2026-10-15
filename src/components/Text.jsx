@@ -8,7 +8,8 @@ export function Title({ title }) {
   return (
     <>
       <span lang="af">{title.af}</span>
-      <span aria-hidden="true"> / </span>
+      {/* Not aria-hidden: the visible text must be part of link names (WCAG 2.5.3). */}
+      {" / "}
       <span lang="en">{title.en}</span>
     </>
   );

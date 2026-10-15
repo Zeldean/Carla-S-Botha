@@ -1,5 +1,6 @@
-// Writes AVIF + WebP variants next to every image in dist/client/paintings (spec §10.2).
-// The originals in public/ stay untouched; they remain the <img> fallback.
+// Writes AVIF + WebP variants next to every image in dist/client/paintings (spec §10.2),
+// and same-size AVIF/WebP copies of the wall/floor textures (used via CSS image-set()).
+// The originals in public/ stay untouched; they remain the fallback.
 import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
@@ -29,6 +30,21 @@ export async function optimizeImages(clientDir) {
     }),
   );
 
+  const textures = path.join(clientDir, "textures");
+  const textureFiles = fs.readdirSync(textures).filter((f) => f.endsWith(".png"));
+  await Promise.all(
+    textureFiles.flatMap((f) =>
+      VARIANT_FORMATS.map((format) =>
+        sharp(path.join(textures, f))
+          .toFormat(format, QUALITY[format])
+          .toFile(path.join(textures, f.replace(/\.png$/, `.${format}`))),
+      ),
+    ),
+  );
+
   const mb = (n) => (n / 1024 / 1024).toFixed(1);
-  console.log(`images: ${files.length} sources (${mb(before)} MB) → variants; 800w WebP total ${mb(after)} MB`);
+  console.log(
+    `images: ${files.length} sources (${mb(before)} MB) → variants; 800w WebP total ${mb(after)} MB; ` +
+      `${textureFiles.length} textures → AVIF/WebP`,
+  );
 }

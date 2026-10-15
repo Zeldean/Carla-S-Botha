@@ -308,7 +308,7 @@ The person editing the JSON files isn't a developer, so the setup has to protect
 
 - Wall: a per-room colour token with the `wall.png` texture blended over it. It's painted with a fixed `::before` instead of `background-attachment: fixed`, which iOS ignores.
 - Floor: fixed to the viewport bottom on every page, layered in front of the wall content, so artworks pass behind its edge.
-- Footer: normal flow, layered above the floor, and the same height as the floor. Once the page is scrolled to the end it lands exactly on the floor. There's no full-width bar: brand, links and contact are separate semi-transparent blocks with the planks visible around them. Below 1330px (where the floor is 100px) the tagline is hidden so it still fits.
+- Footer: normal flow, layered above the floor, and at least the floor's height. There's no full-width bar: brand, links and contact are separate semi-transparent blocks, **stacked and centred**, with the planks visible around them. It may extend above the floor onto the wall when the content needs more room (owner decision, 2026-10-15).
 
 ### 7.2 Composition (D11: approved, with one improvement)
 
@@ -646,4 +646,7 @@ After that:
    - A native `<dialog>` viewer shows a larger image, with previous/next buttons, arrow keys, Escape and backdrop click; focus returns to the thumbnail on close.
    - A "Te koop in Drukke en Skilderye" link appears only while the linked product is available.
    - With every page type having its own component, the interim `PageView` is removed.
-8. Accessibility and Lighthouse audit, then content fill as the blockers clear.
+8. Accessibility and Lighthouse audit, then content fill as the blockers clear. **Audit done 2026-10-15** with `npm run audit` (`scripts/audit.js`). It runs axe-core, Lighthouse's accessibility engine, in headless Firefox on every route × AF/EN × desktop/phone; Chrome isn't available here for Lighthouse itself.
+   - Fixed 68 × WCAG 2.5.3 *label-content-name-mismatch*: the language buttons are now named "AF Afrikaans", and the " / " in bilingual titles is no longer hidden from screen readers. Result: 0 violations.
+   - Wall/floor textures are served as AVIF/WebP via `image-set()`, 1.76 MB → 140 KB. A first visit is about 400 KB on the wire: JS ≈ 153 KB gzipped, textures 140 KB, fonts 100 KB, plus small artwork variants.
+   - Content fill is still open (§13.3).

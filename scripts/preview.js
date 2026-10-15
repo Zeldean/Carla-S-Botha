@@ -7,7 +7,6 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "dist", "client");
-const port = Number(process.env.PORT) || 4173;
 const TYPES = {
   ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css",
   ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".webp": "image/webp",
@@ -16,14 +15,23 @@ const TYPES = {
 
 const isFile = (file) => file.startsWith(root) && fs.existsSync(file) && fs.statSync(file).isFile();
 
-http
-  .createServer((req, res) => {
-    const urlPath = decodeURIComponent(new URL(req.url, "http://localhost").pathname);
-    const base = path.join(root, urlPath);
-    const file = [base, `${base.replace(/\/$/, "")}.html`, path.join(base, "index.html")].find(isFile);
-    const status = file ? 200 : 404;
-    const served = file ?? path.join(root, "404.html");
-    res.writeHead(status, { "Content-Type": TYPES[path.extname(served)] ?? "application/octet-stream" });
-    fs.createReadStream(served).pipe(res);
-  })
-  .listen(port, () => console.log(`Preview (GitHub Pages rules): http://localhost:${port}`));
+/** Starts the server; resolves with it once listening. Also used by scripts/audit.js. */
+export const startPreview = (port) =>
+  new Promise((resolve) => {
+    const server = http.createServer((req, res) => {
+      const urlPath = decodeURIComponent(new URL(req.url, "http://localhost").pathname);
+      const base = path.join(root, urlPath);
+      const file = [base, `${base.replace(/\/$/, "")}.html`, path.join(base, "index.html")].find(isFile);
+      const status = file ? 200 : 404;
+      const served = file ?? path.join(root, "404.html");
+      res.writeHead(status, { "Content-Type": TYPES[path.extname(served)] ?? "application/octet-stream" });
+      fs.createReadStream(served).pipe(res);
+    });
+    server.listen(port, () => resolve(server));
+  });
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const port = Number(process.env.PORT) || 4173;
+  await startPreview(port);
+  console.log(`Preview (GitHub Pages rules): http://localhost:${port}`);
+}

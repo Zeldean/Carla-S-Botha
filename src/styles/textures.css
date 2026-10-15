@@ -8,8 +8,15 @@
     position: relative;
 }
 
+/* image-set: browsers pick AVIF/WebP (generated at build, ~100 KB instead of 1.4 MB);
+   the plain url() line is the fallback for browsers without image-set(). */
 .texture-wall::before {
     background: var(--color-wall) url("/textures/wall.png") center / cover;
+    background-image: image-set(
+        url("/textures/wall.avif") type("image/avif"),
+        url("/textures/wall.webp") type("image/webp"),
+        url("/textures/wall.png") type("image/png")
+    );
     content: "";
     inset: 0;
     position: fixed;
@@ -18,6 +25,11 @@
 
 .texture-floor {
     background-image: url("/textures/floor.png");
+    background-image: image-set(
+        url("/textures/floor.avif") type("image/avif"),
+        url("/textures/floor.webp") type("image/webp"),
+        url("/textures/floor.png") type("image/png")
+    );
     background-position: center center;
     background-repeat: repeat-x;
     background-size: auto 100%;

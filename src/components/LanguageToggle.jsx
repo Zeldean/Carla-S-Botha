@@ -18,11 +18,13 @@ export default function LanguageToggle() {
           type="button"
           className={styles.option}
           aria-pressed={lang === code}
-          aria-label={name}
           lang={code}
           onClick={() => setLang(code)}
         >
+          {/* Visible "AF" stays part of the accessible name ("AF Afrikaans"), so voice
+              control ("click AF") works (WCAG 2.5.3). */}
           {code.toUpperCase()}
+          <span className="visually-hidden"> {name}</span>
         </button>
       ))}
     </div>
