@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, NavLink } from "react-router";
+import { useRef, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router";
 import { getEntry, site, text, ui } from "../lib/content";
 import { useLang } from "../lib/lang";
 import { whatsappUrl } from "../lib/whatsapp";
@@ -11,9 +11,13 @@ import styles from "./SiteHeader.module.css";
  * Always-available navigation (design §5.2, §13.2).
  * Below desktop: logo · language · burger, and the menu (with WhatsApp) drops down.
  * Desktop: logo · six sections · language + WhatsApp.
+ * The menu closes on any navigation (it remembers which page it was opened on) and on Escape.
  */
 export default function SiteHeader() {
-  const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+  const [openOn, setOpenOn] = useState(null);
+  const open = openOn === pathname;
+  const buttonRef = useRef(null);
   const lang = useLang();
   const whatsapp = whatsappUrl("general");
 
@@ -25,7 +29,14 @@ export default function SiteHeader() {
     );
 
   return (
-    <header className={styles.header}>
+    <header
+      className={styles.header}
+      onKeyDown={(e) => {
+        if (e.key !== "Escape" || !open) return;
+        setOpenOn(null);
+        buttonRef.current.focus();
+      }}
+    >
       <Link to="/" className={styles.brand}>
         {site.brand}
       </Link>
@@ -40,7 +51,8 @@ export default function SiteHeader() {
         className={styles.menuButton}
         aria-expanded={open}
         aria-controls="site-nav"
-        onClick={() => setOpen((value) => !value)}
+        ref={buttonRef}
+        onClick={() => setOpenOn(open ? null : pathname)}
       >
         <svg className={styles.burger} viewBox="0 0 24 24" aria-hidden="true">
           {open ? (
@@ -56,7 +68,7 @@ export default function SiteHeader() {
         <ul className={styles.navList}>
           {site.nav.map((slug) => (
             <li key={slug}>
-              <NavLink to={`/${slug}`} className={styles.navLink} onClick={() => setOpen(false)}>
+              <NavLink to={`/${slug}`} className={styles.navLink} onClick={() => setOpenOn(null)}>
                 <Title title={getEntry(slug).title} />
               </NavLink>
             </li>

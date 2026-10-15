@@ -59,7 +59,11 @@ async function openBrowser([width, height]) {
     });
 
   await send("session.new", { capabilities: {} });
-  const context = (await send("browsingContext.getTree")).result.contexts[0].context;
+  // A fresh tab: the startup tab is about:home, which is privileged and refuses setViewport.
+  // --window-size alone isn't honoured by headless Firefox, so the viewport is set explicitly.
+  const context = (await send("browsingContext.create", { type: "tab" })).result.context;
+  const viewport = await send("browsingContext.setViewport", { context, viewport: { width, height } });
+  if (viewport.error) throw new Error(`Couldn't set the ${width}×${height} viewport: ${viewport.message}`);
 
   return {
     goto: (url) => send("browsingContext.navigate", { context, url, wait: "complete" }),
