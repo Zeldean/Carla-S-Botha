@@ -15,8 +15,7 @@
         "af": "'n Joernaal, beplanner en kalender",
         "en": "A journal, planner and calendar"
       },
-      "shape": "portrait",
-      "size": "m"
+      "shape": "portrait"
     },
     {
       "to": "mindfulness-freebies",
@@ -24,8 +23,7 @@
         "af": "Ovaal pop-art-geskenk",
         "en": "Oval pop-art gift"
       },
-      "shape": "oval",
-      "size": "m"
+      "shape": "oval"
     },
     {
       "to": "brain-profiles",
@@ -33,8 +31,7 @@
         "af": "Swart kop-silhoeët met skryfbehoeftes wat uitbars",
         "en": "Black head silhouette with stationery bursting out"
       },
-      "shape": "portrait",
-      "size": "l"
+      "shape": "portrait"
     }
   ],
   "theme": "mindfulness"

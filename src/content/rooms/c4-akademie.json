@@ -15,8 +15,7 @@
         "af": "Antieke sleutel met 'n hart",
         "en": "An antique key with a heart"
       },
-      "shape": "object",
-      "size": "m"
+      "shape": "object"
     },
     {
       "to": "extra-classes",
@@ -24,8 +23,7 @@
         "af": "Boeke, driehoeke en skryfbehoeftes",
         "en": "Books, set squares and stationery"
       },
-      "shape": "portrait",
-      "size": "m"
+      "shape": "portrait"
     },
     {
       "to": "speeches",
@@ -33,8 +31,7 @@
         "af": "Ovaal pop-art-mond met draadjies",
         "en": "Oval pop-art mouth with braces"
       },
-      "shape": "oval",
-      "size": "m"
+      "shape": "oval"
     },
     {
       "to": "brain-profiles",
@@ -42,8 +39,7 @@
         "af": "Gloeilamp met 'n brein binne-in",
         "en": "A lightbulb with a brain inside"
       },
-      "shape": "object",
-      "size": "s"
+      "shape": "object"
     }
   ],
   "theme": "c4-akademie"

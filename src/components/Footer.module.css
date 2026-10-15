@@ -37,8 +37,8 @@
     text-underline-offset: 3px;
 }
 
-@media (max-width: 719px) {
-    /* Keep the footer close to the floor height on phones; the tagline also shows on the home wall. */
+@media (max-width: 1329px) {
+    /* Keep the footer within the 100px floor below desktop; the tagline also shows on the home wall. */
     .brand p:not(.name) {
         display: none;
     }

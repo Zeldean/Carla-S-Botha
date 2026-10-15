@@ -40,7 +40,10 @@ const artwork = z.strictObject({
     .meta({ description: "Only needed to override the default file name (<room folder>/<to>.png)." }),
   alt: localized.meta({ description: "Short description of what the artwork shows." }),
   shape: z.enum(SHAPES),
-  size: z.enum(SIZES).default("m"),
+  size: z
+    .enum(SIZES)
+    .default("l")
+    .meta({ description: '"l" fills the slot (default, all paintings line up). "m"/"s" make a piece look smaller on purpose.' }),
   place: z
     .strictObject({
       col: z.int().min(1),

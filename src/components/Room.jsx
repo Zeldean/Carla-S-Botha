@@ -1,18 +1,42 @@
-import { Link } from "react-router";
-import { getEntry, rooms, site, text } from "../lib/content";
-import { useLang } from "../lib/lang";
+import { getEntry, rooms, site } from "../lib/content";
+import ArtworkLink from "./ArtworkLink";
 import Breadcrumbs from "./Breadcrumbs";
 import { Localized, Title } from "./Text";
 import styles from "./Room.module.css";
 
-// Interim wall: carries the current layout over to the new content model.
-// Task 3 replaces it with shape/size/placement variants and the full plaque.
+// Column counts are picked from the number of artworks so rows stay balanced
+// (6 → 3 + 3 instead of 4 + 2).
+const desktopColumns = (count) => (count <= 4 ? count : count % 3 === 0 ? 3 : 4);
+const tabletColumns = (count) => (count % 3 === 0 ? 3 : 2);
+
+/** A gallery room: heading, wall of artworks, per-room atmosphere (spec §7.2, §7.4). */
 export default function Room({ room }) {
-  const lang = useLang();
   const isHome = room.slug === "home";
+  const count = room.artworks.length;
 
   return (
-    <div className={styles.room}>
+    <div
+      className={styles.room}
+      data-theme={room.theme}
+      style={{ "--cols": desktopColumns(count), "--cols-tablet": tabletColumns(count) }}
+    >
+      <div className={styles.tint} aria-hidden="true" />
+
+      {room.decor.map((item) => (
+        <img
+          key={item.image.src}
+          className={styles.decor}
+          data-position={item.position}
+          data-size={item.size}
+          src={item.image.src}
+          width={item.image.width}
+          height={item.image.height}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        />
+      ))}
+
       <div className={styles.heading}>
         {!isHome && <Breadcrumbs parent={rooms.home} current={room} />}
         <h1 className={styles.title} tabIndex={-1}>
@@ -22,36 +46,24 @@ export default function Room({ room }) {
       </div>
 
       <ul className={styles.wall}>
-        {room.artworks.map((artwork, i) => {
-          const id = `${room.slug}-${artwork.to}`;
-          return (
-            <li key={artwork.to}>
-              <Link
-                className={styles.artwork}
-                to={`/${artwork.to}`}
-                state={{ from: room.slug }}
-                aria-labelledby={`${id}-label`}
-                aria-describedby={`${id}-image`}
-              >
-                <span className={styles.slot}>
-                  <img
-                    id={`${id}-image`}
-                    className={styles.image}
-                    src={artwork.image.src}
-                    width={artwork.image.width}
-                    height={artwork.image.height}
-                    alt={text(artwork.alt, lang)}
-                    loading={i === 0 ? "eager" : "lazy"}
-                    fetchPriority={i === 0 ? "high" : undefined}
-                  />
-                </span>
-                <span id={`${id}-label`} className={`${styles.plaque} texture-plaque`}>
-                  <Title title={getEntry(artwork.to).title} />
-                </span>
-              </Link>
-            </li>
-          );
-        })}
+        {room.artworks.map((artwork, i) => (
+          <li
+            key={artwork.to}
+            className={styles.item}
+            data-size={artwork.size}
+            data-placed={artwork.place ? "" : undefined}
+            style={{
+              "--nx": artwork.nudge?.x,
+              "--ny": artwork.nudge?.y,
+              "--nr": artwork.nudge?.rotate,
+              "--col": artwork.place?.col,
+              "--row": artwork.place?.row,
+              "--span": artwork.place?.span,
+            }}
+          >
+            <ArtworkLink artwork={artwork} target={getEntry(artwork.to)} roomSlug={room.slug} priority={i === 0} />
+          </li>
+        ))}
       </ul>
     </div>
   );

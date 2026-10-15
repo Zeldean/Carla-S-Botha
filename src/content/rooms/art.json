@@ -15,8 +15,7 @@
         "af": "Kunstenaarspalet vol helder verf",
         "en": "An artist's palette covered in bright paint"
       },
-      "shape": "palette",
-      "size": "l"
+      "shape": "palette"
     },
     {
       "to": "gallery",
@@ -24,8 +23,7 @@
         "af": "Potloodskets van 'n huis onder 'n son",
         "en": "Pencil sketch of a house under a sun"
       },
-      "shape": "landscape",
-      "size": "m"
+      "shape": "landscape"
     },
     {
       "to": "prints-and-paintings",
@@ -33,8 +31,7 @@
         "af": "Klein kunswerke uitgelê op 'n werkblad",
         "en": "Small artworks laid out on a work surface"
       },
-      "shape": "landscape",
-      "size": "m"
+      "shape": "landscape"
     }
   ],
   "theme": "art"

@@ -15,8 +15,7 @@
         "af": "Potloodskets van 'n vrou met lang vlegsels",
         "en": "Pencil sketch of a woman with long braids"
       },
-      "shape": "portrait",
-      "size": "m"
+      "shape": "portrait"
     },
     {
       "to": "art",
@@ -24,8 +23,7 @@
         "af": "Potloodskets van 'n meisie met 'n pêreloorbel",
         "en": "Pencil sketch of a girl with a pearl earring"
       },
-      "shape": "portrait",
-      "size": "l"
+      "shape": "portrait"
     },
     {
       "to": "mindfulness",
@@ -33,8 +31,7 @@
         "af": "Ronde skildery van 'n glimlaggende gesiggie",
         "en": "Round painting of a smiling face"
       },
-      "shape": "round",
-      "size": "s"
+      "shape": "round"
     },
     {
       "to": "c4-akademie",
@@ -42,8 +39,7 @@
         "af": "Die letters C4 in neonstyl",
         "en": "The letters C4 in neon style"
       },
-      "shape": "sign",
-      "size": "l"
+      "shape": "sign"
     },
     {
       "to": "shop",
@@ -51,8 +47,7 @@
         "af": "Agthoekige skildery in die vorm van 'n padteken",
         "en": "Octagonal painting shaped like a road sign"
       },
-      "shape": "sign",
-      "size": "m"
+      "shape": "sign"
     },
     {
       "to": "freebies",
@@ -60,8 +55,7 @@
         "af": "Pop-art-geskenk met sterre en ontploffings",
         "en": "Pop-art gift box with stars and bursts"
       },
-      "shape": "square",
-      "size": "m"
+      "shape": "square"
     }
   ],
   "theme": "home"

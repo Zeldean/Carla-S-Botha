@@ -1,0 +1,67 @@
+.artwork {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    text-decoration: none;
+    width: 100%;
+}
+
+/* Every artwork gets its own invisible square display area (design §2.5). */
+.slot {
+    aspect-ratio: 1 / 1;
+    display: block;
+    position: relative;
+    transform: rotate(calc(var(--nr, 0) * var(--nudge-strength, 0) * 1deg));
+    width: 100%;
+}
+
+/* `size` scales the artwork inside its slot: l (default) fills it, s reads as ACEO-small (spec §7.2).
+   Absolutely positioned so every browser resolves the square the same way. */
+.image {
+    --fill: 100%;
+    /* drop-shadow follows the artwork's real outline once it's cut out (design §2.3). */
+    filter: drop-shadow(0 10px 12px rgba(20, 16, 10, 0.38));
+    height: var(--fill);
+    left: calc((100% - var(--fill)) / 2);
+    object-fit: contain;
+    position: absolute;
+    top: calc((100% - var(--fill)) / 2);
+    width: var(--fill);
+}
+
+.artwork[data-size="m"] .image { --fill: 80%; }
+.artwork[data-size="s"] .image { --fill: 55%; }
+
+/* Focus: the plaque gets the ring, and the artwork glows along its own outline. */
+.artwork:focus-visible {
+    outline: none;
+}
+
+.artwork:focus-visible .image {
+    filter:
+        drop-shadow(0 0 3px var(--color-focus))
+        drop-shadow(0 0 6px var(--color-focus))
+        drop-shadow(0 10px 12px rgba(20, 16, 10, 0.38));
+}
+
+.artwork:hover .plaque {
+    outline: 2px solid var(--accent, var(--color-accent));
+    outline-offset: 2px;
+}
+
+.artwork:focus-visible .plaque {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .image {
+        transition: transform 180ms ease;
+    }
+
+    .artwork:hover .image,
+    .artwork:focus-visible .image {
+        transform: scale(1.05);
+    }
+}

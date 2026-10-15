@@ -2,11 +2,51 @@
     display: flex;
     flex: 1;
     flex-direction: column;
+    position: relative;
 }
+
+/* ---------------------------------------------------------------- atmosphere */
+
+.room[data-theme="home"] { --tint: var(--room-home-tint); --accent: var(--room-home-accent); }
+.room[data-theme="art"] { --tint: var(--room-art-tint); --accent: var(--room-art-accent); }
+.room[data-theme="mindfulness"] { --tint: var(--room-mindfulness-tint); --accent: var(--room-mindfulness-accent); }
+.room[data-theme="c4-akademie"] { --tint: var(--room-c4-tint); --accent: var(--room-c4-accent); }
+
+/* Multiplied over the fixed wall texture; opacity keeps ink on the wall above 4.5:1. */
+.tint {
+    background: var(--tint, transparent);
+    inset: 0;
+    mix-blend-mode: multiply;
+    opacity: 0.55;
+    pointer-events: none;
+    position: fixed;
+    z-index: -1;
+}
+
+/* Non-interactive props; behind the artworks and never competing with them (design §2.3). */
+.decor {
+    pointer-events: none;
+    position: absolute;
+    width: 18vw;
+    z-index: 0;
+}
+
+.decor[data-size="s"] { width: 12vw; }
+.decor[data-size="l"] { width: 24vw; }
+
+.decor[data-position$="-top"] { top: var(--space-6); }
+.decor[data-position$="-bottom"] { bottom: 0; }
+.decor[data-position^="left-"] { left: var(--space-3); }
+.decor[data-position^="right-"] { right: var(--space-3); }
+.decor[data-position^="center-"] { left: 50%; translate: -50% 0; }
+
+/* ---------------------------------------------------------------- heading */
 
 .heading {
     padding: var(--space-4) var(--space-3) 0;
+    position: relative;
     text-align: center;
+    z-index: 1;
 }
 
 .title {
@@ -18,93 +58,79 @@
 
 .intro {
     font-family: var(--font-hand);
-    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    font-size: clamp(1.4rem, 4vw, 1.9rem);
     margin-top: var(--space-2);
 }
 
+/* ---------------------------------------------------------------- wall (spec §7.2) */
+
+/* Phone: one artwork per row, alternating left/right; small (s) pieces pair up two per row,
+   so the wall never reads as a list of identical buttons (design §13.5). */
 .wall {
-    /* Flex so the number of artworks can change freely. */
-    align-items: center;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    gap: var(--space-4);
+    display: grid;
+    gap: var(--space-5) var(--space-3);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     list-style: none;
-    margin: var(--space-4) auto;
-    max-width: 90%;
-}
-
-.artwork {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    text-decoration: none;
-    width: min(100%, 380px);
-}
-
-.slot {
-    /* Every artwork gets its own invisible square display area (design §2.5). */
-    aspect-ratio: 1 / 1;
-    display: block;
-    margin-bottom: 20px;
+    margin: var(--space-5) auto var(--space-6);
+    padding: 0 var(--space-3);
     position: relative;
+    width: min(100%, 1320px);
+    z-index: 1;
+}
+
+.item {
+    grid-column: span 2;
+    justify-self: start;
+    width: 82%;
+}
+
+.item:nth-child(even) {
+    justify-self: end;
+}
+
+.item[data-size="s"] {
+    grid-column: span 1;
+    justify-self: center;
     width: 100%;
 }
 
-/* Absolutely positioned so the square is resolved the same way in every browser
-   (Chrome ignores `max-height: 100%` against an aspect-ratio height). */
-.image {
-    height: 100%;
-    inset: 0;
-    object-fit: contain;
-    position: absolute;
-    width: 100%;
-}
-
-.plaque {
-    font-size: 0.9rem;
-    font-weight: 800;
-    letter-spacing: 0.06rem;
-    line-height: 1.25;
-    padding: 12px 14px;
-    text-align: center;
-    text-transform: uppercase;
-    width: min(80%, 240px);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    .image {
-        transition: transform 180ms ease;
-    }
-
-    .artwork:hover .image,
-    .artwork:focus-visible .image {
-        transform: scale(1.08);
-    }
-}
-
+/* Tablet: 2–3 columns, half-strength nudges. */
 @media (min-width: 720px) {
     .wall {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 36px 28px;
-        justify-content: center;
-        max-width: 88%;
+        gap: var(--space-6) var(--space-5);
+        grid-template-columns: repeat(var(--cols-tablet), minmax(0, 1fr));
     }
 
-    .artwork {
-        width: 320px;
+    .item,
+    .item:nth-child(even),
+    .item[data-size="s"] {
+        --nudge-strength: 0.5;
+        grid-column: auto;
+        justify-self: center;
+        max-width: 380px;
+        transform: translate(
+            calc(var(--nx, 0) * var(--nudge-strength) * 1%),
+            calc(var(--ny, 0) * var(--nudge-strength) * 1%)
+        );
+        width: 100%;
     }
 }
 
+/* Desktop: full nudges, and `place` can pin a piece to a grid cell. */
 @media (min-width: 1330px) {
     .wall {
-        gap: 46px 38px;
-        max-width: 1480px;
+        grid-auto-flow: dense;
+        grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
     }
 
-    .artwork {
-        width: 300px;
+    .item,
+    .item:nth-child(even),
+    .item[data-size="s"] {
+        --nudge-strength: 1;
+    }
+
+    .item[data-placed] {
+        grid-column: var(--col) / span var(--span, 1);
+        grid-row: var(--row);
     }
 }

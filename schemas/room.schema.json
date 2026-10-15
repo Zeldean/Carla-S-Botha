@@ -110,7 +110,8 @@
             ]
           },
           "size": {
-            "default": "m",
+            "default": "l",
+            "description": "\"l\" fills the slot (default, all paintings line up). \"m\"/\"s\" make a piece look smaller on purpose.",
             "type": "string",
             "enum": [
               "s",

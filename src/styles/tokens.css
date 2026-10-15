@@ -11,6 +11,17 @@
     --color-focus: #ffd400;        /* sunshine yellow */
     --color-whatsapp: #1f7a3d;
 
+    /* Room atmosphere (design §2.2, §7.2, §8.2, §9.2): a tint multiplied over the wall
+       texture, plus an accent for hover details. */
+    --room-home-tint: transparent;
+    --room-home-accent: #ff2e88;      /* hot pink */
+    --room-art-tint: #ffd84a;         /* sunshine yellow */
+    --room-art-accent: #e63946;       /* red */
+    --room-mindfulness-tint: #9fe0b4; /* green */
+    --room-mindfulness-accent: #2fa36b;
+    --room-c4-tint: #9fb6ff;          /* electric blue, for the blue C */
+    --room-c4-accent: #ff2e88;        /* pink, for the pink 4 */
+
     --font-display: "Bungee", "Arial Black", sans-serif;
     --font-hand: "Caveat", "Comic Sans MS", cursive;
     --font-body: "Nunito Variable", "Nunito", Arial, sans-serif;

@@ -3,6 +3,7 @@ import { parentRoom, ui } from "../lib/content";
 import { whatsappUrl } from "../lib/whatsapp";
 import Breadcrumbs from "./Breadcrumbs";
 import Markdown from "./Markdown";
+import ResponsiveImage from "./ResponsiveImage";
 import { Localized, Title } from "./Text";
 import styles from "./PageView.module.css";
 
@@ -18,12 +19,12 @@ export default function PageView({ page }) {
       <Breadcrumbs parent={parent} current={page} />
 
       <div className={styles.layout}>
-        <img
+        <ResponsiveImage
           className={styles.image}
-          src={page.image.src}
-          width={page.image.width}
-          height={page.image.height}
+          image={page.image}
+          sizes="(min-width: 720px) 40vw, 90vw"
           alt=""
+          fetchPriority="high"
         />
 
         <div className={styles.copy}>

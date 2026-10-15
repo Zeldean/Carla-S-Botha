@@ -3,9 +3,11 @@
 //    so shared links don't take a 301 detour to /speeches/.
 // 2. 404.html = the SPA fallback: unknown URLs boot the app, which renders its own
 //    "not found" page (Pages still sends a real 404 status).
+// 3. AVIF/WebP size variants for every painting (scripts/optimize-images.js).
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { optimizeImages } from "./optimize-images.js";
 
 const client = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "dist", "client");
 
@@ -21,3 +23,5 @@ for (const entry of fs.readdirSync(client, { withFileTypes: true })) {
 
 fs.copyFileSync(path.join(client, "__spa-fallback.html"), path.join(client, "404.html"));
 console.log(`postbuild: ${moved} pages → <slug>.html, wrote 404.html`);
+
+await optimizeImages(client);
