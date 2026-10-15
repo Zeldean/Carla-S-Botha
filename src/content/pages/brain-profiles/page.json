@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../../schemas/page.schema.json",
+  "type": "info",
+  "title": {
+    "af": "Breinprofiele en Studiemetodes",
+    "en": "Brain Profiles and Study Methods"
+  },
+  "defaultParent": "c4-akademie",
+  "description": {
+    "af": "NBI-breinprofiele en praktiese studiemetodes.",
+    "en": "NBI brain profiling and practical study methods."
+  },
+  "cta": {
+    "label": {
+      "af": "Reël 'n konsultasie",
+      "en": "Arrange a consultation"
+    },
+    "template": "enquiry"
+  }
+}

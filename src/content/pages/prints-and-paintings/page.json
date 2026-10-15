@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../../schemas/page.schema.json",
+  "type": "catalogue",
+  "filter": {
+    "category": "art"
+  },
+  "title": {
+    "af": "Drukke en Skilderye",
+    "en": "Prints and Paintings"
+  },
+  "defaultParent": "art",
+  "description": {
+    "af": "Oorspronklike skilderye, drukke en ACEO-kunswerke te koop.",
+    "en": "Original paintings, prints and ACEO artworks for sale."
+  }
+}

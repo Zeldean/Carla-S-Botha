@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../../schemas/page.schema.json",
+  "type": "catalogue",
+  "filter": {
+    "category": "mindfulness"
+  },
+  "title": {
+    "af": "Produkte",
+    "en": "Products"
+  },
+  "defaultParent": "mindfulness",
+  "description": {
+    "af": "Sensoriese fidgets, joernale, beplanners en kalenders.",
+    "en": "Sensory fidgets, journals, planners and calendars."
+  }
+}

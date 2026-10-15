@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "title": {
+      "type": "object",
+      "properties": {
+        "af": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "af",
+        "en"
+      ],
+      "additionalProperties": false,
+      "description": "Both languages, e.g. { \"af\": \"Kuns\", \"en\": \"Art\" }. Use the same text twice if it doesn't change."
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "properties": {
+            "af": {
+              "type": "string",
+              "minLength": 1
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "af",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "audience": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "properties": {
+            "af": {
+              "type": "string",
+              "minLength": 1
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "af",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "mindfulness",
+        "art",
+        "education"
+      ]
+    },
+    "file": {
+      "type": "string",
+      "description": "Either a file in public/, like \"downloads/colouring-book.pdf\", or a full https:// link."
+    },
+    "cover": {
+      "description": "File name inside public/paintings/freebies/.",
+      "type": "string"
+    },
+    "published": {
+      "default": true,
+      "description": "Set to false to hide this item while it's still a draft.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "category",
+    "file"
+  ],
+  "additionalProperties": false
+}

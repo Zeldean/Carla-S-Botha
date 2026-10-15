@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../../schemas/page.schema.json",
+  "type": "freebies",
+  "filter": {
+    "category": "mindfulness"
+  },
+  "title": {
+    "af": "Mindfulness Freebies",
+    "en": "Mindfulness Freebies"
+  },
+  "defaultParent": "mindfulness",
+  "description": {
+    "af": "Gratis inkleurboeke, joernale en aktiwiteite.",
+    "en": "Free colouring books, journals and activities."
+  }
+}

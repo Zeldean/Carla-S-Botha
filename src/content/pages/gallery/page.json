@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../schemas/page.schema.json",
+  "type": "portfolio",
+  "title": {
+    "af": "Galery",
+    "en": "Gallery"
+  },
+  "defaultParent": "art",
+  "description": {
+    "af": "'n Keur van Carla se kunswerke.",
+    "en": "A selection of Carla's artwork."
+  }
+}

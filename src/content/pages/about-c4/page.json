@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../schemas/page.schema.json",
+  "type": "info",
+  "title": {
+    "af": "Meer oor ons",
+    "en": "About Us"
+  },
+  "defaultParent": "c4-akademie",
+  "description": {
+    "af": "Die mens en filosofie agter C4 Akademie.",
+    "en": "The person and philosophy behind C4 Akademie."
+  }
+}

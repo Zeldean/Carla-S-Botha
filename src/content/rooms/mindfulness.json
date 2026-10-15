@@ -1,0 +1,41 @@
+{
+  "$schema": "../../../schemas/room.schema.json",
+  "title": {
+    "af": "Mindfulness",
+    "en": "Mindfulness"
+  },
+  "intro": {
+    "af": "'n Kleurvolle plek om asem te haal.",
+    "en": "A colourful place to breathe."
+  },
+  "artworks": [
+    {
+      "to": "mindfulness-products",
+      "alt": {
+        "af": "'n Joernaal, beplanner en kalender",
+        "en": "A journal, planner and calendar"
+      },
+      "shape": "portrait",
+      "size": "m"
+    },
+    {
+      "to": "mindfulness-freebies",
+      "alt": {
+        "af": "Ovaal pop-art-geskenk",
+        "en": "Oval pop-art gift"
+      },
+      "shape": "oval",
+      "size": "m"
+    },
+    {
+      "to": "brain-profiles",
+      "alt": {
+        "af": "Swart kop-silhoeët met skryfbehoeftes wat uitbars",
+        "en": "Black head silhouette with stationery bursting out"
+      },
+      "shape": "portrait",
+      "size": "l"
+    }
+  ],
+  "theme": "mindfulness"
+}

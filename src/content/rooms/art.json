@@ -1,0 +1,41 @@
+{
+  "$schema": "../../../schemas/room.schema.json",
+  "title": {
+    "af": "Kuns",
+    "en": "Art"
+  },
+  "intro": {
+    "af": "Kom maak, kyk en koop kuns.",
+    "en": "Come make, view and buy art."
+  },
+  "artworks": [
+    {
+      "to": "art-lessons",
+      "alt": {
+        "af": "Kunstenaarspalet vol helder verf",
+        "en": "An artist's palette covered in bright paint"
+      },
+      "shape": "palette",
+      "size": "l"
+    },
+    {
+      "to": "gallery",
+      "alt": {
+        "af": "Potloodskets van 'n huis onder 'n son",
+        "en": "Pencil sketch of a house under a sun"
+      },
+      "shape": "landscape",
+      "size": "m"
+    },
+    {
+      "to": "prints-and-paintings",
+      "alt": {
+        "af": "Klein kunswerke uitgelê op 'n werkblad",
+        "en": "Small artworks laid out on a work surface"
+      },
+      "shape": "landscape",
+      "size": "m"
+    }
+  ],
+  "theme": "art"
+}

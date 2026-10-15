@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../schemas/work.schema.json",
+  "title": {
+    "af": "Blou portret",
+    "en": "Blue portrait"
+  },
+  "medium": {
+    "af": "Potlood op doek",
+    "en": "Pencil on canvas"
+  },
+  "year": 2025,
+  "kind": "drawing",
+  "description": {
+    "af": "Kort beskrywing.",
+    "en": "Short description."
+  },
+  "image": "blue-portrait.jpg",
+  "product": null,
+  "published": true
+}

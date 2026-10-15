@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schemas/product.schema.json",
+  "name": {
+    "af": "Voorbeeld-joernaal",
+    "en": "Example journal"
+  },
+  "category": "mindfulness",
+  "subcategory": {
+    "af": "Joernale",
+    "en": "Journals"
+  },
+  "description": {
+    "af": "Kort beskrywing van die produk.",
+    "en": "Short description of the product."
+  },
+  "intendedUse": {
+    "af": "Waarvoor dit gebruik word.",
+    "en": "What it's used for."
+  },
+  "dimensions": "A5",
+  "price": 120,
+  "options": [
+    "Pink",
+    "Blue"
+  ],
+  "status": "available",
+  "image": "example-journal.jpg",
+  "published": true
+}

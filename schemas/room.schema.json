@@ -1,0 +1,336 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "title": {
+      "type": "object",
+      "properties": {
+        "af": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "af",
+        "en"
+      ],
+      "additionalProperties": false,
+      "description": "Both languages, e.g. { \"af\": \"Kuns\", \"en\": \"Art\" }. Use the same text twice if it doesn't change."
+    },
+    "intro": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "properties": {
+            "af": {
+              "type": "string",
+              "minLength": 1
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "af",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "theme": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "artworks": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "Slug of the page or room this artwork opens."
+          },
+          "image": {
+            "description": "Only needed to override the default file name (<room folder>/<to>.png).",
+            "type": "string"
+          },
+          "alt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "af": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "en": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "af",
+                  "en"
+                ],
+                "additionalProperties": false
+              }
+            ],
+            "description": "Short description of what the artwork shows."
+          },
+          "shape": {
+            "type": "string",
+            "enum": [
+              "portrait",
+              "landscape",
+              "square",
+              "round",
+              "oval",
+              "sign",
+              "palette",
+              "object"
+            ]
+          },
+          "size": {
+            "default": "m",
+            "type": "string",
+            "enum": [
+              "s",
+              "m",
+              "l"
+            ]
+          },
+          "place": {
+            "description": "Desktop only: pin to a grid cell.",
+            "type": "object",
+            "properties": {
+              "col": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              },
+              "row": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              },
+              "span": {
+                "default": 1,
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 3
+              }
+            },
+            "required": [
+              "col",
+              "row"
+            ],
+            "additionalProperties": false
+          },
+          "nudge": {
+            "description": "Desktop only: small offset (%) and tilt (degrees) so the wall looks hand-hung.",
+            "type": "object",
+            "properties": {
+              "x": {
+                "default": 0,
+                "type": "number",
+                "minimum": -5,
+                "maximum": 5
+              },
+              "y": {
+                "default": 0,
+                "type": "number",
+                "minimum": -5,
+                "maximum": 5
+              },
+              "rotate": {
+                "default": 0,
+                "type": "number",
+                "minimum": -5,
+                "maximum": 5
+              }
+            },
+            "additionalProperties": false
+          },
+          "label": {
+            "type": "object",
+            "properties": {
+              "artworkTitle": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "af": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "en": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "af",
+                      "en"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "medium": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "af": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "en": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "af",
+                      "en"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "blurb": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "af": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "en": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "af",
+                      "en"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "invite": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "af": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "en": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "af",
+                      "en"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "to",
+          "alt",
+          "shape"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "decor": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string"
+          },
+          "position": {
+            "type": "string",
+            "enum": [
+              "left-top",
+              "left-bottom",
+              "center-top",
+              "center-bottom",
+              "right-top",
+              "right-bottom"
+            ]
+          },
+          "size": {
+            "default": "m",
+            "type": "string",
+            "enum": [
+              "s",
+              "m",
+              "l"
+            ]
+          }
+        },
+        "required": [
+          "image",
+          "position"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "title",
+    "theme",
+    "artworks"
+  ],
+  "additionalProperties": false
+}

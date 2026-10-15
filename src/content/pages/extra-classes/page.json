@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../../schemas/page.schema.json",
+  "type": "info",
+  "title": {
+    "af": "Ekstra klasse",
+    "en": "Extra Classes"
+  },
+  "defaultParent": "c4-akademie",
+  "description": {
+    "af": "Individuele wiskunde-ekstra klasse in Claremont, Pretoria, of oor WhatsApp.",
+    "en": "Individual maths extra lessons in Claremont, Pretoria, or over WhatsApp."
+  },
+  "cta": {
+    "label": {
+      "af": "Vra oor ekstra klasse",
+      "en": "Ask about extra classes"
+    },
+    "template": "lessons"
+  }
+}

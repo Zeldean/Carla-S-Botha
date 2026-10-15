@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../schemas/page.schema.json",
+  "type": "freebies",
+  "title": {
+    "af": "Freebies",
+    "en": "Freebies"
+  },
+  "defaultParent": "home",
+  "description": {
+    "af": "Gratis hulpbronne om af te laai.",
+    "en": "Free resources to download."
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "../../../schemas/freebie.schema.json",
+  "title": {
+    "af": "Inkleurboek 1",
+    "en": "Colouring book 1"
+  },
+  "description": {
+    "af": "Twaalf bladsye om in te kleur.",
+    "en": "Twelve pages to colour in."
+  },
+  "audience": {
+    "af": "Ouderdom 6+",
+    "en": "Ages 6+"
+  },
+  "category": "mindfulness",
+  "file": "downloads/colouring-book-1.pdf",
+  "cover": "colouring-book-1.png",
+  "published": true
+}

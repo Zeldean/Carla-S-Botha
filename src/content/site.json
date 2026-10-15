@@ -1,0 +1,38 @@
+{
+  "$schema": "../../schemas/site.schema.json",
+  "brand": "Carla.S.Botha",
+  "tagline": {
+    "af": "Waar kuns, leer en mindfulness mekaar ontmoet.",
+    "en": "Where art, learning and mindfulness meet."
+  },
+  "domain": "carla-s-botha.zeldean.me",
+  "contact": {
+    "email": null,
+    "phone": null
+  },
+  "socials": [],
+  "whatsapp": {
+    "number": null,
+    "catalogs": {
+      "all": null,
+      "art": null,
+      "mindfulness": null,
+      "c4": null
+    },
+    "templates": {
+      "general": "Hi Carla! I found you on carla-s-botha.zeldean.me and would like to get in touch.",
+      "enquiry": "Hi Carla! I'm interested in {page} and would like more information, please.",
+      "product": "Hi Carla! I'd like to order: {product}{option}. Is it still available?",
+      "lessons": "Hi Carla! I'd like to ask about {page}. My child is in Grade __ and I'm looking for lessons on __ (weekdays/weekends).",
+      "speech": "Hi Carla! I'd like to order a speech. Grade: __ · Topic: __ · Due date: __ · Extras (PowerPoint / pictures / prep session): __"
+    }
+  },
+  "nav": [
+    "about-me",
+    "art",
+    "mindfulness",
+    "c4-akademie",
+    "shop",
+    "freebies"
+  ]
+}

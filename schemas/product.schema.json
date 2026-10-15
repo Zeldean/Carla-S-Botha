@@ -1,0 +1,229 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "properties": {
+            "af": {
+              "type": "string",
+              "minLength": 1
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "af",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "art",
+        "mindfulness",
+        "c4"
+      ],
+      "description": "\"art\", \"mindfulness\" or \"c4\". Decides which catalogue and image folder."
+    },
+    "subcategory": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "properties": {
+            "af": {
+              "type": "string",
+              "minLength": 1
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "af",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "properties": {
+            "af": {
+              "type": "string",
+              "minLength": 1
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "af",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "intendedUse": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "properties": {
+            "af": {
+              "type": "string",
+              "minLength": 1
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "af",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "medium": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "object",
+              "properties": {
+                "af": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "en": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "af",
+                "en"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "dimensions": {
+      "description": "e.g. \"A4\" or \"30 × 40 cm\"",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "price": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Whole rand as a number, like 120 (no \"R\"). Use null for \"price on enquiry\"."
+    },
+    "options": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "minLength": 1
+          },
+          {
+            "type": "object",
+            "properties": {
+              "af": {
+                "type": "string",
+                "minLength": 1
+              },
+              "en": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "af",
+              "en"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "status": {
+      "default": "available",
+      "type": "string",
+      "enum": [
+        "available",
+        "made-to-order",
+        "sold"
+      ]
+    },
+    "image": {
+      "description": "File name of the photo in this category's image folder.",
+      "type": "string"
+    },
+    "published": {
+      "default": true,
+      "description": "Set to false to hide this item while it's still a draft.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "name",
+    "category",
+    "description",
+    "price"
+  ],
+  "additionalProperties": false
+}

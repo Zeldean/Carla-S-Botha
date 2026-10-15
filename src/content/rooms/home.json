@@ -1,0 +1,68 @@
+{
+  "$schema": "../../../schemas/room.schema.json",
+  "title": {
+    "af": "Carla.S.Botha",
+    "en": "Carla.S.Botha"
+  },
+  "intro": {
+    "af": "Waar kuns, leer en mindfulness mekaar ontmoet.",
+    "en": "Where art, learning and mindfulness meet."
+  },
+  "artworks": [
+    {
+      "to": "about-me",
+      "alt": {
+        "af": "Potloodskets van 'n vrou met lang vlegsels",
+        "en": "Pencil sketch of a woman with long braids"
+      },
+      "shape": "portrait",
+      "size": "m"
+    },
+    {
+      "to": "art",
+      "alt": {
+        "af": "Potloodskets van 'n meisie met 'n pêreloorbel",
+        "en": "Pencil sketch of a girl with a pearl earring"
+      },
+      "shape": "portrait",
+      "size": "l"
+    },
+    {
+      "to": "mindfulness",
+      "alt": {
+        "af": "Ronde skildery van 'n glimlaggende gesiggie",
+        "en": "Round painting of a smiling face"
+      },
+      "shape": "round",
+      "size": "s"
+    },
+    {
+      "to": "c4-akademie",
+      "alt": {
+        "af": "Die letters C4 in neonstyl",
+        "en": "The letters C4 in neon style"
+      },
+      "shape": "sign",
+      "size": "l"
+    },
+    {
+      "to": "shop",
+      "alt": {
+        "af": "Agthoekige skildery in die vorm van 'n padteken",
+        "en": "Octagonal painting shaped like a road sign"
+      },
+      "shape": "sign",
+      "size": "m"
+    },
+    {
+      "to": "freebies",
+      "alt": {
+        "af": "Pop-art-geskenk met sterre en ontploffings",
+        "en": "Pop-art gift box with stars and bursts"
+      },
+      "shape": "square",
+      "size": "m"
+    }
+  ],
+  "theme": "home"
+}

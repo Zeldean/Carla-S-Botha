@@ -1,0 +1,445 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "af": {
+              "type": "string",
+              "minLength": 1
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "af",
+            "en"
+          ],
+          "additionalProperties": false,
+          "description": "Both languages, e.g. { \"af\": \"Kuns\", \"en\": \"Art\" }. Use the same text twice if it doesn't change."
+        },
+        "defaultParent": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Room the \"back\" link returns to when the visitor arrived directly."
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "object",
+              "properties": {
+                "af": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "en": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "af",
+                "en"
+              ],
+              "additionalProperties": false
+            }
+          ],
+          "description": "One sentence for search results and link previews."
+        },
+        "image": {
+          "description": "Override the page artwork (file inside this page's own folder).",
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "info"
+        },
+        "layout": {
+          "default": "default",
+          "type": "string",
+          "enum": [
+            "default",
+            "personal"
+          ]
+        },
+        "cta": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "af": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "en": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "af",
+                    "en"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "template": {
+              "type": "string",
+              "enum": [
+                "general",
+                "enquiry",
+                "product",
+                "lessons",
+                "speech"
+              ],
+              "description": "Which WhatsApp message template from site.json to prefill."
+            }
+          },
+          "required": [
+            "label",
+            "template"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "title",
+        "defaultParent",
+        "description",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "af": {
+              "type": "string",
+              "minLength": 1
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "af",
+            "en"
+          ],
+          "additionalProperties": false,
+          "description": "Both languages, e.g. { \"af\": \"Kuns\", \"en\": \"Art\" }. Use the same text twice if it doesn't change."
+        },
+        "defaultParent": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Room the \"back\" link returns to when the visitor arrived directly."
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "object",
+              "properties": {
+                "af": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "en": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "af",
+                "en"
+              ],
+              "additionalProperties": false
+            }
+          ],
+          "description": "One sentence for search results and link previews."
+        },
+        "image": {
+          "description": "Override the page artwork (file inside this page's own folder).",
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "catalogue"
+        },
+        "filter": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "enum": [
+                "art",
+                "mindfulness",
+                "c4"
+              ]
+            }
+          },
+          "required": [
+            "category"
+          ],
+          "additionalProperties": false
+        },
+        "services": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          }
+        },
+        "cta": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "af": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "en": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "af",
+                    "en"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "template": {
+              "type": "string",
+              "enum": [
+                "general",
+                "enquiry",
+                "product",
+                "lessons",
+                "speech"
+              ],
+              "description": "Which WhatsApp message template from site.json to prefill."
+            }
+          },
+          "required": [
+            "label",
+            "template"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "title",
+        "defaultParent",
+        "description",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "af": {
+              "type": "string",
+              "minLength": 1
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "af",
+            "en"
+          ],
+          "additionalProperties": false,
+          "description": "Both languages, e.g. { \"af\": \"Kuns\", \"en\": \"Art\" }. Use the same text twice if it doesn't change."
+        },
+        "defaultParent": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Room the \"back\" link returns to when the visitor arrived directly."
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "object",
+              "properties": {
+                "af": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "en": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "af",
+                "en"
+              ],
+              "additionalProperties": false
+            }
+          ],
+          "description": "One sentence for search results and link previews."
+        },
+        "image": {
+          "description": "Override the page artwork (file inside this page's own folder).",
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "freebies"
+        },
+        "filter": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "enum": [
+                "mindfulness",
+                "art",
+                "education"
+              ]
+            }
+          },
+          "required": [
+            "category"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "title",
+        "defaultParent",
+        "description",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "af": {
+              "type": "string",
+              "minLength": 1
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "af",
+            "en"
+          ],
+          "additionalProperties": false,
+          "description": "Both languages, e.g. { \"af\": \"Kuns\", \"en\": \"Art\" }. Use the same text twice if it doesn't change."
+        },
+        "defaultParent": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Room the \"back\" link returns to when the visitor arrived directly."
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "object",
+              "properties": {
+                "af": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "en": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "af",
+                "en"
+              ],
+              "additionalProperties": false
+            }
+          ],
+          "description": "One sentence for search results and link previews."
+        },
+        "image": {
+          "description": "Override the page artwork (file inside this page's own folder).",
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "portfolio"
+        }
+      },
+      "required": [
+        "title",
+        "defaultParent",
+        "description",
+        "type"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

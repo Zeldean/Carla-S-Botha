@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../../schemas/page.schema.json",
+  "type": "info",
+  "title": {
+    "af": "Toesprake",
+    "en": "Speeches"
+  },
+  "defaultParent": "c4-akademie",
+  "description": {
+    "af": "Skooltoesprake en ATKV-toesprake vir Graad R–12.",
+    "en": "School and ATKV speeches for Grade R–12."
+  },
+  "cta": {
+    "label": {
+      "af": "Bestel 'n toespraak",
+      "en": "Order a speech"
+    },
+    "template": "speech"
+  }
+}

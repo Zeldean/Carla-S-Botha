@@ -1,0 +1,50 @@
+{
+  "$schema": "../../../schemas/room.schema.json",
+  "title": {
+    "af": "C4 Akademie",
+    "en": "C4 Akademie"
+  },
+  "intro": {
+    "af": "Leer op jou eie manier.",
+    "en": "Learning, your way."
+  },
+  "artworks": [
+    {
+      "to": "about-c4",
+      "alt": {
+        "af": "Antieke sleutel met 'n hart",
+        "en": "An antique key with a heart"
+      },
+      "shape": "object",
+      "size": "m"
+    },
+    {
+      "to": "extra-classes",
+      "alt": {
+        "af": "Boeke, driehoeke en skryfbehoeftes",
+        "en": "Books, set squares and stationery"
+      },
+      "shape": "portrait",
+      "size": "m"
+    },
+    {
+      "to": "speeches",
+      "alt": {
+        "af": "Ovaal pop-art-mond met draadjies",
+        "en": "Oval pop-art mouth with braces"
+      },
+      "shape": "oval",
+      "size": "m"
+    },
+    {
+      "to": "brain-profiles",
+      "alt": {
+        "af": "Gloeilamp met 'n brein binne-in",
+        "en": "A lightbulb with a brain inside"
+      },
+      "shape": "object",
+      "size": "s"
+    }
+  ],
+  "theme": "c4-akademie"
+}

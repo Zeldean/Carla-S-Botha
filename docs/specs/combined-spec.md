@@ -1,14 +1,15 @@
 # Carla.S.Botha: Combined Specification
 
-> **Status:** Draft, 2026-10-14. Built from [`design-spec.md`](./design-spec.md) and [`technical-spec.md`](./technical-spec.md), checked against the code at `ec904dd` (the `src/` tree has not changed since `201e29d`). No app code has been changed.
+> **Status:** Draft v2, 2026-10-15. Owner decisions D1–D11 are applied (§13). Built from [`design-spec.md`](./design-spec.md) and [`technical-spec.md`](./technical-spec.md), checked against the code at `ec904dd` (the `src/` tree has not changed since `201e29d`). No app code has been changed.
 >
-> **Source documents:** The two specs above are left unchanged. This document supersedes both **where they disagree**. Where this file is silent, the source documents still apply.
+> **Source documents:** The two specs above are left unchanged. This document supersedes both **where they disagree**, and the owner decisions in §13 supersede both. Where this file is silent, the source documents still apply.
 >
 > **Legend**
 > - **ALIGNED**: the design requirement and the technical plan already agree.
-> - **RESOLVED**: there was a conflict or gap, and this spec picks a resolution. It can still be revisited.
-> - **DECISION NEEDED**: a judgment call for the site owner. A recommended default is given so work can continue.
-> - **CONTENT BLOCKER**: the structure is ready, but real content (prices, numbers, artwork) still has to be supplied.
+> - **RESOLVED**: there was a conflict or gap, and this spec picks a resolution.
+> - **OWNER DECISION**: settled by the site owner (§13).
+> - **ASSUMPTION**: a call made here where the owner said "use best judgement". It's easy to change.
+> - **CONTENT BLOCKER**: the structure is ready, but real content (final artworks, prices, numbers) still has to be supplied.
 > - `D#` refers to the decision log in §13. `C#` refers to the conflict log in §2. `B#` refers to the bug table in technical-spec §2.1.
 
 ---
@@ -17,128 +18,126 @@
 
 | Area | Design spec | Technical spec | Status |
 |---|---|---|---|
-| Stack | No stated requirements | React + Vite + React Router + plain CSS | ALIGNED. Nothing in the design needs a CMS, state library or CSS framework. |
-| Page inventory | 16 destinations, 16 artwork placements (§16) | Rooms reference pages; 4 page types | ALIGNED in principle. One type is missing a component, and the page→type mapping wasn't written down (C1, §3). |
-| Shared pages | One underlying page reachable from several places (§15.4) | Flat slugs, rooms *reference* pages (§3.2–3.3) | ALIGNED. |
-| "Only display what is ready" | §15.3, §8.4, §10.3, §11.2 | `published: false` | ALIGNED for pages. It conflicts with the six confirmed homepage artworks (C7 → D3). |
+| Stack | No stated requirements | React + Vite + React Router + plain CSS | ALIGNED. |
+| Page inventory | 16 destinations, 16 artwork placements (§16) | Rooms reference pages; 4 page types | ALIGNED. The mapping is written down in §3. |
+| Shared pages | One underlying page reachable from several places (§15.4) | Flat slugs, rooms *reference* pages | ALIGNED. |
+| "Only display what is ready" | §15.3, §8.4, §10.3, §11.2 | `published: false` hides pages | **Replaced by D3.** Every destination is always shown, and missing artwork gets a placeholder (§7.5). |
+| Language | Mixed AF/EN per section; About fully in both (§3.2) | Q3 open | **Replaced by D2.** AF is primary, short labels show both languages, and a site-wide toggle switches full content (§8). |
+| URLs & code | AF/EN labels | Q1 open | **D1:** URLs, file names and code are all English (§3). |
+| Artwork storage | — | Move images to `src/assets/` for hashing | **Replaced by D4.** Images stay in `public/paintings/`, in a folder tree that mirrors the rooms. A build step optimises them instead (§10). |
 | Square display area per artwork | §2.5 | Existing `.painting-slot` is `aspect-ratio: 1/1` | ALIGNED. Keep it. |
-| Varied shapes *and sizes* | §2.4 (ACEO-small to large) | `shape` variants only | GAP (C4). Add `size`. |
-| Museum labels | Section title + optional title, medium, blurb, invitation (§2.6) | `Plaque` with bilingual title only; current CSS clamps to 2 lines | GAP (C5). |
-| Conventional navigation | Required on the homepage, and "always" reachable (§5.2, §13.2) | `Footer` only | GAP (C6). |
-| Back to previous room | §13.2 | `state.from` + `defaultParent`, breadcrumbs | ALIGNED. Also fixes B5. |
-| Catalogues with prices | §7.5, §8.3, §10 | `products/*.json` | GAP. The schema is missing size, medium, availability and intended use (C9). |
-| Portfolio ("Gallery") | §7.4 | `portfolio` type exists, but there's no component or data shape | GAP (C1). |
-| WhatsApp enquiries | On every booking/product/service page (§7.3, §9.4, §9.5, §12) | Only in `Footer` / `ProductCard` | GAP (C10). |
-| Bilingual | Mixed per section; About fully in both (§3.2) | Q3 open | RESOLVED for the data model, DECISION NEEDED for presentation (D2). |
-| Room atmosphere / decor | Per-room wall colour, props, neon (§2.3, §7.2, §8.2, §9.2) | "atmosphere class" only | GAP (C8). |
-| Readability | Long info and price lists must stay readable (§13.6) | Current detail page scrolls inside a 62vh box | CONFLICT with the current code (C11). |
-| Footer on every page | §12 | `MuseumLayout` → `Footer` | ALIGNED, but it collides with the current fixed floor (C12). |
-| Link sharing | WhatsApp is the main channel | Prerender is "optional" | RESOLVED: make prerender part of the plan (C13). |
+| Varied shapes *and sizes* | §2.4 | `shape` variants only | RESOLVED (C4): add `size`. |
+| Museum labels | §2.6 | Bilingual title; current CSS clamps to 2 lines | RESOLVED (C5). |
+| Conventional navigation | §5.2, §13.2 | `Footer` only | RESOLVED (C6): add `SiteHeader`. |
+| Back to previous room | §13.2 | `state.from` + `defaultParent` | ALIGNED. Also fixes B5. |
+| Catalogues with prices | §7.5, §8.3, §10 | `products/*.json` | RESOLVED (C9): the schema is extended. |
+| Portfolio ("Gallery") | §7.4 | No component or data shape | RESOLVED (C1). |
+| WhatsApp enquiries | §7.3, §9.4, §9.5, §12 | `Footer` / `ProductCard` only | RESOLVED (C10) with D7. |
+| Content editing | — | Q4 open | **D8:** the developer edits code and Markdown; a non-developer (Carla's family) edits JSON data files (§5.8). |
+| Readability | §13.6 | Detail page scrolls inside a 62vh box | RESOLVED (C11). |
+| Footer on every page | §12 | `MuseumLayout` → `Footer` | ALIGNED. The fixed-floor collision is fixed (C12). |
+| Link sharing | WhatsApp is the main channel | Prerender "optional" | RESOLVED (C13): prerender is part of the plan. |
 
 ---
 
 ## 2. Conflict & gap log
 
-Each row lists where the problem is, what's wrong, and the resolution (with the section that specifies it).
-
 | # | Sources | Problem | Resolution |
 |---|---|---|---|
-| C1 | design §7.4, §16 / tech §3.3–3.4 | The tech spec lists the page type `portfolio`, but there's no component and no data shape for portfolio works. | Add `Portfolio` + `WorkCard` components and `content/works/*.json` (§5.5, §6). |
-| C2 | design §8.4, §16 / tech §3.3 | "Mindfulness Freebies" is one of the 16 destinations, but the tech spec only has a category filter inside `FreebieList`. There's no page for it. | It becomes its own page (`type: freebies`, `filter: { category: mindfulness }`) with its own URL and back-link to the Mindfulness room. Its items come from the same freebie files as the main Freebies page. **RESOLVED.** |
-| C3 | design §8.3, §7.5, §10 / tech §3.3 | Products, Prints and Paintings, and Shop are 3 destinations that all show products. The tech spec doesn't say how they relate. | All 3 are `type: catalogue` pages over **one** product pool, each with a category filter. Shop shows everything, grouped. This satisfies §15.4 ("same underlying information"). **RESOLVED.** |
-| C4 | design §2.4 / tech §3.4 / code `Gallery.css` | The design wants some pieces to feel ACEO-small and others large. Today every slot is the same width (300–380px), and `shape` does nothing (B2). | Add a `size: s \| m \| l` field per placement. It scales the artwork *inside* its square slot, so the "invisible square" rule (§2.5) still holds (§7.2). **RESOLVED.** |
-| C5 | design §2.6 / code `.painting-plaque` (fixed `height: 58px`, `line-clamp: 2`) | Plaques can't hold the optional title, medium, blurb or invitation. A bilingual title plus anything extra gets cut off. | The plaque gets structured fields with an auto height. The destination title is always line 1 and is the link's accessible name. Validation caps the extra text (§7.3). **RESOLVED.** |
-| C6 | design §5.2, §13.2 / tech §3.4 | The design needs "conventional navigation" and a way to reach Shop, Freebies and Contact *at all times*. A footer at the bottom of a long room doesn't meet "at all times". | Add a slim `SiteHeader`: the brand (→ home), a compact menu with the 6 main sections, and a WhatsApp button. The footer repeats the links (§8.1). **RESOLVED.** The look still needs owner sign-off with the first visual prototype. |
-| C7 | design §15.3 vs §3.2/§13.3 | "Only display what is ready" conflicts with "six confirmed homepage destinations" when a destination has nothing to show yet. For example, Freebies may have zero completed resources at launch. | **DECISION NEEDED (D3).** Default: the six homepage artworks always show. Empty catalogue/freebie pages show a single friendly fallback instead of empty categories. Room placements whose page is `published: false` are hidden. |
-| C8 | design §2.3, §7.2, §8.2, §9.2 / tech §3.4 | Per-room atmosphere (wall colour, props, neon, plants) has no data model. The current code has one global `wall.png`. | Each room file gets a `theme` (CSS class with tokens) and an optional `decor[]` list of non-interactive images (§7.4). **RESOLVED.** |
-| C9 | design §7.5, §8.3, §10.3 / tech §3.3 | The product schema `{ name, description, price, category[], options[], image, orderUrl }` has no field for dimensions, medium, availability or intended use. It also has no rule for sold items. | Extend the schema (§5.4). Only `status: available \| made-to-order` items appear in catalogues. Sold originals can still appear in the Portfolio. **RESOLVED.** |
-| C10 | design §7.3, §9.4, §9.5, §12 / tech §3.4 | Every service page has a WhatsApp call to action ("Enquire about…"), but the tech spec has no component for it. | Add an `EnquiryCTA` component. It takes a prefilled WhatsApp message from page frontmatter, and the number comes from `site.json` (§9). **RESOLVED.** Number and wording are D7. |
-| C11 | design §13.6 / code `.detail-copy` (`overflow-y: auto; max-height: 62vh` at ≥720px) | Long biographies and price tables get trapped in a small inner scroll box. Keyboard users can't scroll it either (tech §2.4). | Info pages scroll as a normal document. The image sits beside the text on desktop (sticky) and above it on mobile (§7.5). **RESOLVED.** |
-| C12 | design §12 / code `.museum-floor` (`position: fixed; z-index: 9`, 100–150px tall) | A fixed floor would cover the footer and the last row of content. On phones it takes 100px of every screen. | The floor becomes a normal band at the bottom of *room* pages, and the footer sits below it. Info pages get a thin floor edge or none (§7.1). **RESOLVED.** |
-| C13 | design §12 (WhatsApp-centric) / tech §3.2 (prerender "optional") | Links shared in WhatsApp show previews from the static HTML. A client-only SPA gives every page the same generic preview, because React 19's hoisted `<title>/<meta>` only exist after JavaScript runs. | Prerender every route at build time (§4.2). **RESOLVED.** This is a developer call, not an owner decision. |
-| C14 | design §3.2 / tech §3.3 `title: { af, en }` | Some titles are Afrikaans only (*Breinprofiele en Studiemetodes*), some English only (*Mindfulness*, *Gallery*, *Products*). A required `{af, en}` pair would force fake translations. | `title` is either a string with a `lang` attribute, or `{ af, en }` when the title really is bilingual (§5.1). **RESOLVED.** |
-| C15 | design §6.2, §5.3 "retro lettering", handwritten mix / tech §3.5 "display + body" fonts | No fonts have been chosen. The current font is Arial everywhere. | Tokens get 3 font roles: `--font-body`, `--font-display`, `--font-hand`. The actual fonts are **DECISION NEEDED (D6)**. |
-| C16 | design §2.2 "no strict palette" / tech §3.5 "no raw hex outside tokens" | These look contradictory, but they aren't. | The token rule only applies to **UI chrome** (plaques, text, header, footer, room walls). Artwork colour lives in the images and isn't restricted. **RESOLVED.** |
-| C17 | design §14 / tech Q6 / `public/paintings/` | The tech spec calls `artwork-01…15.png`, `shop.png` and `mindfulness/free.png` "unreferenced, maybe leftovers". A visual check shows they are photos of **work-in-progress artworks that match the design's §14 concepts** (mapping in §10.3). | They are planned assets, not leftovers. Move them out of `public/` so they stop shipping (≈25 MB), but keep them as masters. **RESOLVED.** Q6 is partly answered. |
-| C18 | design §7.3 (Kunslesse = painter's palette) / code `data/gallery.js` | The existing painted palette (`art.png`) is currently the **Kuns** homepage artwork. Kunslesse uses a *Girl with a Pearl Earring*-style sketch instead. `shop.png` is an octagonal sign that reads **"STOP"**, not "SHOP". | **DECISION NEEDED (D4).** The design says the Art homepage and Art Lessons artworks aren't final (§17), so the current code is a placeholder, not a commitment. |
-| C19 | design §5.2 brand "Carla.S.Botha" / code `<title>Carla S Botha</title>` (`index.html`, `404.html`) | The brand name is spelled differently. | Use "Carla.S.Botha" everywhere (`site.json` → `PageMeta`). **RESOLVED.** |
-| C20 | tech §3.2 (data router now, framework-mode prerender "optional later") | Moving to `createBrowserRouter` and then to framework mode later would mean rewriting the router twice. | Go straight to the final routing approach (§4.2). **RESOLVED.** |
-| C21 | design §6.6, §9.3 ("can link to the detailed service pages") / tech §3.3 | Markdown bodies will contain internal links (`/kuns`, `/ekstra-klasse`). Rendered as plain `<a>`, these cause full page reloads, and broken links can't be caught. | Make Markdown `a` render as a router `<Link>` for internal paths, and validate internal link targets at build time (§5.6). **RESOLVED.** |
-| C22 | tech §3.3 (`ready` on freebies vs `published` elsewhere) | Two different flags have the same meaning. | Use `published` everywhere. **RESOLVED.** |
-| C23 | design §2.4, §5.3 (sign-shaped, palette-shaped, oval artworks) / assets | Most artwork photos still include the blue cloth background (`art.png` has no transparency at all). The shapes can't read as objects on a wall until they are cut out. | Add a cut-out step to the asset workflow (§10.2). **RESOLVED.** |
+| C1 | design §7.4 / tech §3.3–3.4 | The `portfolio` type has no component and no data shape. | Add `Portfolio` + `WorkCard` and `content/works/*.json` (§5.5). |
+| C2 | design §8.4, §16 / tech §3.3 | Mindfulness Freebies is one of the 16 destinations, but the tech spec only has a category filter for it. | It becomes its own page, `/mindfulness-freebies`, reading the same freebie files with a filter (§3.1). |
+| C3 | design §7.5, §8.3, §10 | Products, Prints and Paintings, and Shop all show products. The tech spec doesn't say how they relate. | All 3 are `catalogue` pages over **one** product pool. Shop shows everything (§3.1, §5.4). |
+| C4 | design §2.4 / code `Gallery.css` | Every slot is the same width, so nothing reads as ACEO-small or large. `shape` has no effect (B2). | A `size: s \| m \| l` field scales the artwork inside its square slot (§7.2). |
+| C5 | design §2.6 / code `.painting-plaque` | `height: 58px` + `line-clamp: 2` cuts off bilingual titles and the optional label lines. | Structured plaque with an auto height (§7.3). |
+| C6 | design §5.2, §13.2 | A footer alone doesn't make Shop, Freebies and Contact reachable *at all times*. | A slim `SiteHeader` with the brand, the 6 sections, the AF/EN toggle and WhatsApp (§9). |
+| C7 | design §15.3 vs §3.2, §13.3 | "Only show what's ready" conflicts with the confirmed destinations. | **D3:** everything is shown, with placeholders where artwork or content is missing (§7.5). |
+| C8 | design §2.3, §7.2, §8.2, §9.2 | Room atmosphere has no data model. | `theme` + optional `decor[]` per room (§7.4). |
+| C9 | design §7.5, §8.3, §10.3 | The product schema has no field for dimensions, medium, availability or intended use. | Extended schema (§5.4). |
+| C10 | design §7.3, §9.4, §9.5, §12 | There's no WhatsApp call-to-action component. | `EnquiryCTA` with message templates (§11, D7). |
+| C11 | design §13.6 / code `.detail-copy` | Long text is trapped in an inner scroll box that keyboards can't reach. | Normal document scroll (§7.6). |
+| C12 | design §12 / code `.museum-floor` (`position: fixed`) | The fixed floor would cover the footer and costs 100px of every phone screen. | The floor becomes a static band. The footer sits below it (§7.1). |
+| C13 | design §12 / tech §3.2 | A client-only SPA gives every page the same generic WhatsApp link preview. | Prerender every route at build time (§4.2). |
+| C14 | design §3.2 / tech §3.3 | Some titles are AF-only or EN-only. | **D2:** every title stores both `af` and `en`. If they're identical (e.g. "Mindfulness"), it's shown once (§8.2). |
+| C15 | design §6.2, §5.3 / tech §3.5 | No fonts chosen; Arial everywhere. | **D6:** Bungee / Caveat / Nunito (§7.7). |
+| C16 | design §2.2 "no strict palette" / tech §3.5 "no raw hex" | Looks contradictory, but isn't. | The token rule covers **UI chrome** only. Artwork colour lives in the images. |
+| C17 | tech §2.3, Q6 / `public/paintings/` | The tech spec treats `artwork-*.png` etc. as possibly dead weight. A visual check shows they're photos of unfinished artworks matching design §14. | **D4:** they're renamed into the room folder structure. Only the one unassigned file moves out of `public/` (§10.3). |
+| C18 | tech §3.6 (`src/assets/` + `vite-imagetools`) vs D4 (`public/` folders) | Files in `public/` are copied as-is. They don't get Vite's hashing, resizing or unused-file removal. | A build-time manifest plus a `sharp` post-build step brings back sizes and modern formats (§10.2). |
+| C19 | design brand / `index.html`, `404.html` | The brand appears as "Carla S Botha" in the code but "Carla.S.Botha" in the design. | "Carla.S.Botha" everywhere, from `site.json`. |
+| C20 | tech §3.2 | Moving to the data router now and to framework mode later means rewriting the router twice. | Go straight to the final approach (§4.2). |
+| C21 | design §6.6, §9.3 | Internal links in Markdown cause full reloads and can't be checked. | Render internal links as router `<Link>`s, and validate their targets at build time (§5.7). |
+| C22 | tech §3.3 (`ready` vs `published`) | Two flags have the same meaning. | One optional `published` flag, defaulting to `true` (§5.1). |
+| C23 | design §2.4 / photos on blue cloth | Shaped artworks (palette, sign, oval) don't read as objects while the background cloth is visible. | A cut-out step when the **final** artworks arrive (§10.4). The current photos are temporary (D4), so they're used as they are. |
+| C24 | D1 (all-English URLs) vs D2 (Afrikaans primary) | The URLs are English while the default display language is Afrikaans. | This is deliberate. URLs and code are an internal convention, and visitors read the AF/EN labels, not the slugs. |
 
 ---
 
 ## 3. Information architecture
 
-### 3.1 Destinations → slug, type, component
+### 3.1 Destinations → slug, type, component (D1: English)
 
-Slugs follow the recommended rule in D1: **the language of the first label word**. If D1 changes, only this column changes.
-
-| # | Destination (design §16) | Slug (D1 default) | Type | Rendered by | Placed in room(s) | Default parent |
+| # | Destination (design §16) | Slug | Type | Rendered by | Placed in | Default parent |
 |---|---|---|---|---|---|---|
 | 1 | Home | `/` | room | `Room` | — | — |
-| 2 | Oor my / About Me | `/oor-my` | info (`layout: personal`) | `InfoPage` | home | home |
-| 3 | Kuns / Art | `/kuns` | room | `Room` | home | home |
-| 4 | Kunslesse / Art Lessons | `/kunslesse` | info | `InfoPage` + `EnquiryCTA` | kuns | kuns |
-| 5 | Gallery | `/gallery` | portfolio | `Portfolio` | kuns | kuns |
-| 6 | Prints and Paintings | `/prints-and-paintings` | catalogue (`filter: art`) | `Catalogue` | kuns | kuns |
+| 2 | Oor my / About Me | `/about-me` | info (`layout: personal`) | `InfoPage` | home | home |
+| 3 | Kuns / Art | `/art` | room | `Room` | home | home |
+| 4 | Kunslesse / Art Lessons | `/art-lessons` | info | `InfoPage` + `EnquiryCTA` | art | art |
+| 5 | Gallery | `/gallery` | portfolio | `Portfolio` | art | art |
+| 6 | Prints and Paintings | `/prints-and-paintings` | catalogue (`filter: art`) | `Catalogue` | art | art |
 | 7 | Mindfulness | `/mindfulness` | room | `Room` | home | home |
 | 8 | Products | `/mindfulness-products` | catalogue (`filter: mindfulness`) | `Catalogue` | mindfulness | mindfulness |
 | 9 | Mindfulness Freebies | `/mindfulness-freebies` | freebies (`filter: mindfulness`) | `FreebieList` | mindfulness | mindfulness |
-| 10 | Breinprofiele en Studiemetodes | `/breinprofiele` | info | `InfoPage` + `EnquiryCTA` | mindfulness **and** c4-akademie | c4-akademie (see §8.2) |
+| 10 | Breinprofiele en Studiemetodes | `/brain-profiles` | info | `InfoPage` + `EnquiryCTA` | mindfulness **and** c4-akademie | c4-akademie |
 | 11 | C4 Akademie | `/c4-akademie` | room | `Room` | home | home |
-| 12 | Meer oor ons | `/meer-oor-ons` | info | `InfoPage` | c4-akademie | c4-akademie |
-| 13 | Ekstra klasse | `/ekstra-klasse` | info | `InfoPage` + `EnquiryCTA` | c4-akademie | c4-akademie |
-| 14 | Toesprake | `/toesprake` | info | `InfoPage` + `EnquiryCTA` | c4-akademie | c4-akademie |
-| 15 | Winkel / Shop | `/winkel` | catalogue (all, grouped) | `Catalogue` | home | home |
+| 12 | Meer oor ons | `/about-c4` | info | `InfoPage` | c4-akademie | c4-akademie |
+| 13 | Ekstra klasse | `/extra-classes` | info | `InfoPage` + `EnquiryCTA` | c4-akademie | c4-akademie |
+| 14 | Toesprake | `/speeches` | info | `InfoPage` + `EnquiryCTA` | c4-akademie | c4-akademie |
+| 15 | Winkel / Shop | `/shop` | catalogue (all, grouped) | `Catalogue` | home | home |
 | 16 | Freebies | `/freebies` | freebies (all, grouped) | `FreebieList` | home | home |
 
-That's **16 destinations** = 4 rooms + 12 pages, and **16 placements**: home 6, kuns 3, mindfulness 3, c4-akademie 4. Breinprofiele has 2 placements but only 1 destination. This matches design §16 exactly.
+- That's 16 destinations (4 rooms + 12 pages) and 16 placements (home 6, art 3, mindfulness 3, c4-akademie 4). This matches design §16.
+- **Owner exception to D1:** *C4 Akademie* is a brand name, so its slug stays `/c4-akademie` (decided 2026-10-15). Its displayed title is **C4 Akademie** in both languages.
+- `/about-c4` is used instead of `/about-us`, so it can't be confused with `/about-me`.
+- Breinprofiele's default parent is c4-akademie, because consultations are an educational service and parents are that room's audience. Visitors arriving from Mindfulness still get "back to Mindfulness" through router state.
 
 ### 3.2 What exists in code today
 
-| Today | Maps to | Notes |
-|---|---|---|
-| `about-me` (detail) | `/oor-my` | Placeholder text |
-| `art` (gallery) | `/kuns` | Room is missing **Gallery** (Q5 is answered by design §7: 3 artworks) |
-| `art-lessons` (detail) | `/kunslesse` | Placeholder text |
-| `prints-paintings` (detail) | `/prints-and-paintings` | Will become a catalogue, not an info page |
-
-Everything else is new.
+| Today | Becomes |
+|---|---|
+| `about-me` (detail) | `/about-me` (the slug is unchanged) |
+| `art` (gallery) | `/art` room. It gains **Gallery** as its 3rd artwork. |
+| `art-lessons` (detail) | `/art-lessons` |
+| `prints-paintings` (detail) | `/prints-and-paintings`, now a catalogue |
 
 ---
 
 ## 4. Routing
 
-### 4.1 URL scheme: ALIGNED with tech §3.2
+### 4.1 URL scheme
 
 ```
-/                → home room
-/:slug           → look up slug in the content index → render by `type`
-/gallery/:slug   → legacy redirect (only if D1/Q2 says the old URLs were shared)
-/detail/:slug    → legacy redirect (same condition)
-*                → NotFound
+/        → home room
+/:slug   → content index lookup → render by `type`
+*        → NotFound
 ```
 
-- Every slug is unique across rooms and pages. The build fails on a duplicate.
-- `/gallery` (the portfolio, one path segment) and the legacy `/gallery/:slug` (two segments) don't collide.
-- Import from `react-router`, not `react-router-dom` (tech §3.2).
+- **D1:** no old links were shared, so there are **no legacy redirects** for `/gallery/*` and `/detail/*`.
+- Slugs are unique across rooms and pages. The build fails on a duplicate.
+- The language is **not** part of the URL. There's one URL per destination, and the toggle is a display preference (§8).
+- Import from `react-router`, not `react-router-dom`.
 
-### 4.2 Rendering: RESOLVED (C13, C20)
+### 4.2 Rendering (C13, C20)
 
-**Use React Router framework mode with `ssr: false` + `prerender`.** The prerender list comes from the content index, so every slug gets its own `index.html` with the correct `<title>`, description and `og:image`.
+**React Router framework mode, `ssr: false` + `prerender`**, with the route list taken from the content index.
 
-- Think of it as Jekyll output that becomes a React app after loading. GitHub Pages serves `/kuns/index.html` directly.
-- This removes the `404.html` → `sessionStorage` → `replaceState` redirect for every real page. Keep `404.html` only for truly unknown URLs.
-- WhatsApp/Facebook link previews then show the right artwork and title for each page.
-- Assumption to verify first: `@react-router/dev` must support the project's Vite major version (8.x). If it doesn't yet, use the data router (`createBrowserRouter`) as tech §3.2 describes, plus a ~30-line post-build script that writes a per-slug `index.html` copy with the right meta tags. The route modules and components stay the same either way.
+- Every slug gets its own `index.html` with the right title, description and `og:image`. That gives correct WhatsApp link previews.
+- GitHub Pages serves these files directly, so the `404.html` → `sessionStorage` redirect isn't needed for real pages.
+- Pages are prerendered in **Afrikaans**, the primary language (D2).
+- Check first: `@react-router/dev` must support Vite 8.x. If it doesn't yet, use `createBrowserRouter` plus a small post-build script that writes one `index.html` per slug with the right meta tags. Route modules and components are the same either way.
 
-### 4.3 Back-navigation: ALIGNED with tech §3.2 (fixes B5)
+### 4.3 Back-navigation (fixes B5)
 
-- A room passes `state: { from: roomSlug }` when it links to a page.
-- `BackLink` uses `state.from`. If that's missing (direct link, refresh, shared URL), it falls back to `defaultParent`.
-- Breadcrumb: `Main gallery › C4 Akademie › Toesprake`. Rooms only show `‹ Main gallery`.
+- A room passes `state: { from: roomSlug }` when it links to a page. `BackLink` falls back to `defaultParent` when that state is missing.
+- Breadcrumb: `Main gallery › C4 Akademie › Toesprake / Speeches`.
 
 ---
 
@@ -146,155 +145,160 @@ Everything else is new.
 
 ### 5.1 Shared conventions
 
-- **Title** (C14): either `"Mindfulness"` with `titleLang: en`, or `{ af: "Oor my", en: "About Me" }`.
-  - Bilingual titles always render **AF first**, matching the order in design §3.2/§4.
-  - Both halves get the same size and weight, each in its own `<span lang>`.
-- **Flags**: `published: boolean` on every page, product, freebie and work (C22).
-- **Images**: referenced by path relative to `src/assets/` (e.g. `artworks/kuns/palette.png`). They're resolved through `import.meta.glob`, so the build fails on a missing file.
+- **Everything in code and data is English**: keys, slugs, file and folder names (D1). Afrikaans appears only in text *values*.
+- **Localised text** is either a plain string (the same in both languages) or `{ "af": "…", "en": "…" }`. Titles are always `{ af, en }` (C14).
+- **`published`** is optional, defaults to `true`, and only means "draft, hide this item". It isn't used to hide whole destinations (D3).
+- **Images** are found by convention, not by full paths (§10.1). Data files list just a file name, or nothing at all.
 
 ### 5.2 Layout
 
 ```
 src/content/
-  site.json                 # brand, tagline, email, phone, whatsapp, socials, nav order
-  rooms/{home,kuns,mindfulness,c4-akademie}.json
-  pages/*.md                # 12 pages, frontmatter + Markdown body
-  products/*.json
-  freebies/*.json
-  works/*.json              # portfolio pieces (C1)
-src/assets/
-  artworks/<room>/*.png     # cut-out wall artworks (C23)
-  decor/<room>/*.png
-  products/  works/  freebies/   # covers / photos
+  site.json                    # brand, contact, socials, WhatsApp number + catalogue links + message templates
+  ui.json                      # interface strings {af,en}: "Back to", "Download", "Coming soon"…
+  rooms/{home,art,mindfulness,c4-akademie}.json
+  pages/<slug>/
+    page.json                  # metadata (editable by the non-developer editor)
+    af.md                      # Afrikaans body (developer-edited)
+    en.md                      # English body (optional)
+  products/<slug>.json         # one file per product
+  freebies/<slug>.json
+  works/<slug>.json
+schemas/*.schema.json          # generated from zod; gives editors autocomplete + inline errors
 ```
 
-### 5.3 Room (`rooms/*.json`)
+Splitting metadata (`page.json`) from bodies (`af.md` / `en.md`) does 3 things:
+- it keeps D8 clean, because the JSON editor never touches Markdown
+- it makes the language toggle a simple file choice
+- it removes the need for a frontmatter parser.
 
-```jsonc
+### 5.3 Room (`rooms/art.json`)
+
+```json
 {
-  "slug": "kuns",
+  "$schema": "../../../schemas/room.schema.json",
   "title": { "af": "Kuns", "en": "Art" },
-  "intro": "Optional one-liner under the room heading",   // home: the welcoming phrase (design §5.2)
-  "theme": "kuns",                                          // → .room--kuns tokens (§7.4)
+  "intro": { "af": "…", "en": "…" },
+  "theme": "art",
   "artworks": [
     {
-      "to": "kunslesse",                 // any slug: page OR room (home → kuns)
-      "image": "artworks/kuns/palette.png",
-      "alt": "A painter's palette covered in thick rainbow paint",
-      "shape": "palette",                // portrait|landscape|square|round|oval|sign|object
-      "size": "m",                       // s|m|l  (C4)
-      "nudge": { "x": -1, "y": 2, "rotate": -2 }, // optional, desktop only (§7.2)
-      "label": {                         // plaque (C5); title defaults to the target's title
-        "artworkTitle": "Die Palet",
-        "medium": "Acrylic on board",
-        "blurb": "Come paint with me",
-        "invite": "Step inside →"
-      }
+      "to": "art-lessons",
+      "alt": { "af": "…", "en": "A painter's palette covered in thick rainbow paint" },
+      "shape": "palette",
+      "size": "m",
+      "place": { "col": 2, "row": 1, "span": 1 },
+      "nudge": { "x": -1, "y": 2, "rotate": -2 },
+      "label": { "artworkTitle": "…", "medium": "Acrylic on board", "invite": { "af": "Stap in →", "en": "Step inside →" } }
     }
   ],
-  "decor": [ { "image": "decor/kuns/easel.png", "position": "left-bottom", "size": "m" } ]
+  "decor": [ { "image": "easel.png", "position": "left-bottom", "size": "m" } ]
 }
 ```
 
-### 5.4 Product (`products/*.json`): extends tech §3.3 (C9)
+- The slug comes from the file name (`rooms/art.json` → `art`; `pages/<slug>/`, `products/<slug>.json` likewise), so it can't get out of sync with a field. Files starting with `_` are ignored, so `_example.json` templates can sit next to the real data.
+- `to` can be a page **or** a room (home → art).
+- No `image` field is needed. The artwork is `public/paintings/art/art-lessons.*` by convention (§10.1). An optional `image` override exists for the shared Breinprofiele placement (design §9.6).
+- `shape` is one of `portrait | landscape | square | round | oval | sign | palette | object`.
+- `place` and `nudge` are optional and desktop-only (§7.2).
 
-```jsonc
+### 5.4 Product (`products/<slug>.json`)
+
+```json
 {
-  "slug": "ouchie-fidget",
-  "name": "Ouchie sensory fidget",
-  "category": "mindfulness",            // art | mindfulness | c4
-  "subcategory": "Sensory fidgets",     // used for grouping as the catalogue grows
-  "description": "…",
-  "intendedUse": "…",                   // design §8.3
-  "medium": null, "dimensions": null,   // design §7.5 (art items)
-  "price": 120,                         // ZAR, whole rand; null → "Price on enquiry"
-  "options": ["Pink", "Blue"],          // design §8.3 "available variations"
-  "status": "available",                // available | made-to-order | sold
-  "image": "products/ouchie.jpg",
-  "order": { "whatsappMessage": "Hi Carla, I'd like to order the Ouchie fidget" },
-  "published": true
+  "$schema": "../../../schemas/product.schema.json",
+  "name": { "af": "Ouchie sensoriese fidget", "en": "Ouchie sensory fidget" },
+  "category": "mindfulness",
+  "subcategory": "Sensory fidgets",
+  "description": { "af": "…", "en": "…" },
+  "intendedUse": { "af": "…", "en": "…" },
+  "medium": null,
+  "dimensions": null,
+  "price": 120,
+  "options": ["Pink", "Blue"],
+  "status": "available",
+  "image": "ouchie-fidget.jpg"
 }
 ```
 
-Catalogues list only `published && status !== "sold"` (design §7.5 "only available as available", §10.4).
+- `category` is one of `art | mindfulness | c4`.
+- `price` is a number in whole rand. Use `null` for "price on enquiry".
+- `status` is one of `available | made-to-order | sold`. Sold items drop out of catalogues but can still appear in the Portfolio.
+- The `image` file lives in that category's catalogue folder (§10.1).
 
-### 5.5 Portfolio work (`works/*.json`): new (C1)
+### 5.5 Portfolio work (`works/<slug>.json`)
 
-```jsonc
-{ "slug": "…", "title": "…", "medium": "…", "year": 2025, "description": "…",
-  "image": "works/…", "kind": "painting|drawing|aceo|illustration|other",
-  "product": "optional-product-slug", "published": true }
+```json
+{ "title": { "af": "…", "en": "…" }, "medium": "…", "year": 2025, "kind": "painting",
+  "description": { "af": "…", "en": "…" }, "image": "blue-portrait.jpg", "product": null }
 ```
 
-The portfolio is "for viewing, not shopping" (design §7.4). A work only shows a small "available in Prints and Paintings" link if `product` is set and that product is available.
+- `kind` is one of `painting | drawing | aceo | illustration | other`.
+- If `product` is set and that product is available, the card shows a small "available in Prints and Paintings" link.
 
-### 5.6 Page (`pages/*.md`)
+### 5.6 Freebie (`freebies/<slug>.json`)
 
-```yaml
----
-slug: toesprake
-type: info                     # info | catalogue | freebies | portfolio
-title: Toesprake
-titleLang: af
-defaultParent: c4-akademie
-image: artworks/c4/mouth-braces.png
-layout: default                # info only: default | personal (About)
-filter: { category: mindfulness }   # catalogue/freebies only
-services: [kunslesse, ekstra-klasse, toesprake, breinprofiele]  # winkel only (design §10.2)
-cta: { label: "Bestel 'n toespraak op WhatsApp", message: "Hallo Carla, ek wil graag 'n toespraak bestel" }
-description: "Speech writing for school and ATKV speeches, Grade R–12."   # <meta>, og
-published: false               # stays false until prices are confirmed (design §9.5)
----
+```json
+{ "title": { "af": "…", "en": "…" }, "description": { "af": "…", "en": "…" },
+  "audience": "Ages 6+", "category": "mindfulness",
+  "file": "downloads/colouring-book-1.pdf", "cover": "colouring-book-1.png" }
 ```
 
-- **Body**: Markdown with GFM tables (price lists, design §9.4–9.5) and container directives for language blocks:
+- **D9:** `file` takes either a path in `public/` or a full `https://` URL, so moving to Google Drive later is a data change only.
 
-  ```md
-  :::section{lang=af}
-  **Onderwyser. Kunstenaar. Skrywer. Nuuskierige mens.**
-  :::
-  ```
+### 5.7 Page (`pages/<slug>/page.json` + bodies)
 
-  Rendered with `react-markdown` + `remark-gfm` + `remark-directive`. The directive becomes `<section lang="af">`.
-- **Build-time parse and validation**: a small Vite plugin turns `.md` into `{ frontmatter, body }` at build time and runs `zod` schemas over all content. It fails the build on:
-  - missing required fields
-  - an unknown or duplicate slug
-  - a room `to:` pointing at a missing slug
-  - a missing image or freebie file
-  - an internal Markdown link to a missing slug (C21)
-  - plaque text over the length limit (§7.3)
-
-  Parsing at build time, in Node, avoids shipping a frontmatter parser to the browser. Parsers like `gray-matter` expect Node's `Buffer`.
-
-### 5.7 Freebie (`freebies/*.json`): extends tech §3.3
-
-```jsonc
-{ "slug": "…", "title": "…", "description": "…", "audience": "Ages 6+",
-  "category": "mindfulness",          // mindfulness | art | education
-  "file": "/freebies/colouring-book-1.pdf",   // or an external URL (D9)
-  "cover": "freebies/colouring-book-1.png", "published": true }
+```json
+{
+  "$schema": "../../../../schemas/page.schema.json",
+  "type": "info",
+  "title": { "af": "Toesprake", "en": "Speeches" },
+  "defaultParent": "c4-akademie",
+  "layout": "default",
+  "description": { "af": "…", "en": "Speech writing for school and ATKV speeches, Grade R–12." },
+  "cta": { "label": { "af": "Bestel 'n toespraak", "en": "Order a speech" }, "template": "speech" }
+}
 ```
+
+- Catalogue and freebies pages add `"filter": { "category": "…" }`. Shop adds `"services": ["art-lessons", "extra-classes", "speeches", "brain-profiles"]` (design §10.2).
+- **Bodies** are Markdown with GFM tables for price lists, rendered with `react-markdown` + `remark-gfm`. Internal links like `/extra-classes` render as router `<Link>`s (C21).
+- **Validation** runs in a small Vite plugin with zod. It runs in dev, at build, and via `npm run check` in CI.
+  - **Errors fail the build:** bad JSON, a wrong field type, an unknown or duplicate slug, a `to:` or internal link pointing at a missing slug.
+  - **Warnings don't fail the build** (D3): a missing artwork image (the placeholder is used), a missing `en.md`, a missing product image.
+
+### 5.8 Editing by a non-developer (D8)
+
+The person editing the JSON files isn't a developer, so the setup has to protect them from mistakes:
+
+- **One item per file.** Adding a product means copying a file and changing its values. There's never a long array to break with a stray comma.
+- **Strict JSON, plain values.** Prices are numbers (`120`, not `"R120"`). There are no nested structures beyond `{ af, en }`.
+- **`$schema` at the top of every file.** In VSCodium this gives autocomplete, dropdowns for `category`/`status`, and red underlines on mistakes while typing. The schemas are generated from the zod schemas, so they can't drift apart.
+- **Friendly errors**, which name the file, the field and an example. For example: `products/ouchie-fidget.json → "price" must be a number like 120 (got "R120")`.
+- **The CI check runs before deploy,** so a broken edit never reaches the live site.
+- **ASSUMPTION:** the editor edits through VSCodium, or through GitHub's web editor (which has no schema hints, but the CI check still protects the live site). A short `docs/editing-guide.md` is part of task 1 (§14).
 
 ---
 
-## 6. Components: design requirement → component
+## 6. Components
 
-| Component | Design requirement served | Source |
-|---|---|---|
-| `MuseumLayout` | Shell for every page: skip link, `SiteHeader`, `<Outlet>`, `Footer`, scroll restoration, route-change focus | tech §3.4 + C6 |
-| `SiteHeader` | Brand signature (§5.2), conventional nav to the 6 sections, always-visible WhatsApp (§13.2) | **new** (C6) |
-| `Room` | Gallery rooms (§4, §7–9), theme class, decor layer, irregular composition (§2.5, §13.4) | tech §3.4 + C8 |
-| `ArtworkLink` | Artwork as entrance (§1), shape + size variants (§2.4), focus ring that follows the shape | tech §3.4 + C4 |
-| `Plaque` | Museum label (§2.6), equal-weight bilingual titles (§3.2) | tech §3.4 + C5 |
-| `InfoPage` | About, Kunslesse, Breinprofiele, Meer oor ons, Ekstra klasse, Toesprake. The `personal` layout adds framed sections and handwritten accents (§6.2) | tech §3.4 |
-| `Catalogue` / `ProductCard` | Prints and Paintings, Products, Shop (§7.5, §8.3, §10). Groups by category, hides empty groups, shows a "services" strip on Shop and a WhatsApp catalogue fallback | tech §3.4 + C3, C9 |
-| `Portfolio` / `WorkCard` | Gallery (§7.4) | **new** (C1) |
-| `FreebieList` / `FreebieCard` | Freebies + Mindfulness Freebies (§8.4, §11). Shows the file type and size on the download button | tech §3.4 + C2 |
-| `EnquiryCTA` | "Enquire via WhatsApp" on service and product pages (§7.3, §9.4, §9.5, §12) | **new** (C10) |
-| `Breadcrumbs` / `BackLink` | §13.2 | tech §3.4 |
-| `Footer` | §12 | tech §3.4 |
-| `NotFound` | One shared page that replaces both copies of the "not on the wall yet" markup | tech §3.4 (fixes B4) |
-| `PageMeta` | Per-page title and description. With prerender, these are also baked into the HTML (C13) | tech §3.4 |
+| Component | Design requirement served |
+|---|---|
+| `MuseumLayout` | Shell for every page: skip link, `SiteHeader`, `<Outlet>`, `Footer`, scroll restoration, focus on route change |
+| `SiteHeader` | Brand (→ home), the 6 sections, `LanguageToggle`, WhatsApp button (C6) |
+| `LanguageToggle` | AF \| EN switch for full content, site-wide (D2, §8) |
+| `Room` | Rooms, theme, decor layer, composition (§7.2, §7.4) |
+| `ArtworkLink` | Artwork entrance with shape and size variants, a focus ring that follows the shape, and a placeholder fallback (§7.5) |
+| `Plaque` | Museum label with both-language title (§7.3) |
+| `Localized` / `useLang()` | Picks `af` or `en` from a localised value, with fallback (§8.3) |
+| `InfoPage` | 6 info pages. The `personal` layout is for About (§7.6) |
+| `Catalogue` / `ProductCard` | Prints and Paintings, Products, Shop. Includes the services strip and per-category WhatsApp catalogue links |
+| `Portfolio` / `WorkCard` | Gallery (C1) |
+| `FreebieList` / `FreebieCard` | Freebies and Mindfulness Freebies. Downloads show the file type and size |
+| `EnquiryCTA` | WhatsApp enquiry with a prefilled message (§11) |
+| `Breadcrumbs` / `BackLink` | §4.3 |
+| `Footer` | design §12 |
+| `NotFound` | One shared page (fixes B4) |
+| `PageMeta` | Title, description and og tags, baked in by prerender |
+| `ResponsiveImage` | `<picture>` built from the image manifest (§10.2): width/height, WebP/AVIF, placeholder fallback |
 
 ---
 
@@ -302,222 +306,328 @@ published: false               # stays false until prices are confirmed (design 
 
 ### 7.1 Shell (C12)
 
-- Wall: a per-room colour token, with the existing `wall.png` texture over it (`background-blend-mode: multiply`). Painted with a fixed-position `::before` instead of `background-attachment: fixed` (tech §3.5; iOS ignores `fixed`).
-- Floor: a static band at the bottom of room pages, inside the page flow. It's no longer `position: fixed`.
-- Footer: below the floor, visually quiet (design §12: "should not compete").
+- Wall: a per-room colour token with the `wall.png` texture blended over it. It's painted with a fixed `::before` instead of `background-attachment: fixed`, which iOS ignores.
+- Floor: a static band at the bottom of rooms.
+- Footer: below the floor, visually quiet.
 
-### 7.2 Composition (design §2.5, §13.4–13.5; tech Q7)
+### 7.2 Composition (D11: approved, with one improvement)
 
-- Every placement keeps a **square slot**, which already exists today (`.painting-slot`).
-- **Size within the slot** (C4): `s` ≈ 55% (reads as ACEO), `m` ≈ 80%, `l` = 100% plus a slightly larger slot on desktop.
-- **Desktop (≥1330px)**: a CSS grid. Each placement can carry a small `nudge` (a few % offset, ±3° rotation) so the wall looks hand-hung but stays balanced. This avoids fully hand-placed absolute positions, which break when the viewport changes. *Owner reviews the result in a prototype (D11).*
-- **Tablet (720–1329px)**: 2–3 column grid, with `nudge` reduced to half.
-- **Phone (<720px)**: 1 column, plus 2 columns for consecutive `s` pieces. Rows alternate left and right alignment. Shapes, sizes and plaques stay, so the page never looks like a list of identical buttons (design §13.5).
+- Every placement keeps its **square slot**.
+- `size`: `s` ≈ 55% of the slot (reads as ACEO), `m` ≈ 80%, `l` = 100% and a larger slot on desktop.
+- **Desktop (≥1330px):** a CSS grid. By default artworks auto-flow, each with an optional `nudge` (small offset, ±3° rotation) so the wall looks hand-hung.
+  - **Improvement:** an optional `place: { col, row, span }` pins a piece to a specific grid cell. Rooms work out of the box, and once the final artworks arrive each wall can be hand-curated without breaking other screen sizes. `place` is ignored below 1330px.
+- **Tablet (720–1329px):** 2–3 columns, with `nudge` at half strength.
+- **Phone (<720px):** 1 column, plus 2 columns for consecutive `s` pieces. Rows alternate left and right alignment, and shapes, sizes and plaques stay, so it never looks like a list of identical buttons (design §13.5).
 - No horizontal scroll at any width.
 
 ### 7.3 Plaque (C5)
 
 ```
 ┌──────────────────────────┐
-│ OOR MY / ABOUT ME        │  ← destination title (required). Link's accessible name.
-│ "Self-portrait in blue"  │  ← artworkTitle (optional, italic)
-│ Pencil on canvas         │  ← medium (optional, small)
-│ Step inside →            │  ← invite or blurb (optional, small)
+│ OOR MY / ABOUT ME        │  ← title: both languages, equal weight (D2). Link's accessible name.
+│ "Self-portrait in blue"  │  ← artworkTitle (optional) ┐
+│ Pencil on canvas         │  ← medium (optional)       ├ follow the language toggle
+│ Stap in →                │  ← invite / blurb          ┘
 └──────────────────────────┘
 ```
 
-- Height grows with content (remove `height: 58px` and `line-clamp`).
-- Validation limits: the optional lines together ≤ 90 characters, so plaques stay "small museum labels".
-- Accessibility: the link is named by the plaque title (`aria-labelledby`). The image `alt` describes the artwork and is exposed with `aria-describedby`. This replaces the current `aria-label="Open …"`, which violates WCAG 2.5.3 (tech §2.4).
-- Contrast: plaque ink on the plaque gradient must be ≥ 4.5:1. Today's text is `#2d261d` on light plaques, which is fine on the plaque. B6 (dark text on the dark fallback background) is fixed by moving page text onto tokens.
+- The height grows with the content, and the optional lines are capped at 90 characters (that's a warning, not an error).
+- The link is named by the plaque title (`aria-labelledby`). The image `alt` is exposed via `aria-describedby`. This replaces the current `aria-label="Open …"` (WCAG 2.5.3).
 
 ### 7.4 Room atmosphere (C8, C16)
 
-- `.room--home`, `.room--kuns`, `.room--mindfulness`, `.room--c4` set `--wall`, `--accent`, `--plaque-ink` and an optional texture overlay. The actual colours come from design §2.2 and are tuned per room.
-- `decor[]` images: `aria-hidden`, `pointer-events: none`, placed behind artworks. On phones they're dropped or reduced to one item, because decor must not compete with clickable artworks (design §2.3).
-- Neon (C4 sign, §9.2): an optional CSS glow or flicker, only inside `@media (prefers-reduced-motion: no-preference)`.
+- `.room--home`, `.room--art`, `.room--mindfulness` and `.room--c4-akademie` each set `--wall`, `--accent`, `--plaque-ink` and an optional texture.
+- `decor[]` images are `aria-hidden`, use `pointer-events: none`, sit behind the artworks, and are reduced to at most one on phones.
+- Neon glow or flicker only runs inside `prefers-reduced-motion: no-preference`.
 
-### 7.5 Info pages (C11; design §13.6, §15.5)
+### 7.5 Placeholders (D3)
 
-- Normal document scroll. On desktop: two columns, with the artwork in a sticky left column and text at a max of ~68ch. On mobile: artwork on top.
-- `layout: personal` (About): framed text panels, `--font-hand` for short accents only (pull quotes, the "Onderwyser. Kunstenaar…" line). Body text always uses `--font-body`.
-- Price tables: real `<table>`s with right-aligned prices and a caption.
-- Gallery identity is kept with the wall texture, a plaque-style heading and the breadcrumb (design §15.5).
+- **Missing artwork:** `public/ui/placeholder-frame.svg` is an empty ornate frame on the wall, with "Kom binnekort / Coming soon" on its canvas. It sits in the same square slot, so the wall composition doesn't change when the real painting arrives.
+- **Missing page body:** a short "Hierdie kamer word nog ingerig / This room is still being set up" panel, plus the page's `EnquiryCTA`.
+- **Empty catalogue category:** the category still shows, with "Coming soon" and that category's WhatsApp catalogue link.
+- **Empty freebie category:** the category still shows, with a "Coming soon" card.
+- Design guardrails still apply. Placeholders say "coming soon", but the site never presents something as *bookable* or *available* when it isn't (design §7.3, §10.4).
 
-### 7.6 Tokens (tech §3.5)
+### 7.6 Info pages (C11)
 
-`src/styles/tokens.css`: colours (UI chrome only, C16), 3 font roles (C15, D6), a spacing scale, and breakpoints as comments (`720px`, `1330px`). All other CSS is in CSS Modules, except `reset.css`, `tokens.css` and the `texture-*` utilities.
+- Normal document scroll. On desktop the artwork sits in a sticky left column and the text is ~68ch wide. On mobile the artwork goes on top.
+- `layout: personal` (About): framed text panels, with handwritten-font accents for short lines only.
+- Price tables are real `<table>`s with right-aligned prices and a caption.
+
+### 7.7 Tokens & fonts (D6: ASSUMPTION, free, swappable)
+
+`src/styles/tokens.css` holds UI-chrome colours, a spacing scale, breakpoints (`720px`, `1330px`) and 3 font roles. All 3 fonts are free (SIL Open Font License), self-hosted via `@fontsource`, and include the Afrikaans characters ê ë ô ï.
+
+| Role | Font | Why |
+|---|---|---|
+| `--font-display` | **Bungee** | Made for signage, so it suits the retro/neon lettering in design §5.3. Used for room titles and the brand only. |
+| `--font-hand` | **Caveat** | A legible handwritten font for About-page accents (design §6.2) |
+| `--font-body` | **Nunito** | Rounded, friendly and very readable for long text and price lists (design §13.6) |
+
+Self-hosting means no requests to Google, which helps with privacy (§12). To swap a font, change one token and one import.
 
 ---
 
-## 8. Navigation & wayfinding (design §13)
+## 8. Language (D2)
 
-### 8.1 Always available
+### 8.1 Rules
+
+1. **Afrikaans is the primary language.** It's the default, it's used for prerendered HTML, and the root element is `<html lang="af">`.
+2. **Short labels always show both languages** where they differ: titles, plaque titles, nav items, breadcrumbs. For example "Oor my / About Me", with both halves the same size and weight, each wrapped in `<span lang>`. Where both are the same ("Mindfulness", "C4 Akademie") the label is shown once.
+3. **Full content follows a site-wide AF \| EN toggle.** That covers page bodies, descriptions, plaque extra lines, UI strings and alt text.
+
+### 8.2 Toggle mechanics
+
+- The choice is stored in `localStorage` as a per-visitor convenience, defaulting to `af`. Storage access is wrapped in try/catch, so a private window simply stays in AF.
+- **No flash, no hydration mismatch:** prerendered pages contain **both** language bodies. A tiny inline script in `<head>` sets `<html data-lang>` from storage before the first paint, and CSS hides the inactive language (`[data-lang="en"] [data-body-lang="af"] { display: none }`). The same script updates `<html lang>`.
+- `display: none` also hides the inactive language from screen readers, so assistive tech only reads the active version.
+
+### 8.3 Missing translations
+
+- If `en.md` (or an `en` value) is missing, the AF content is shown with a small note: "This page is currently only available in Afrikaans." The reverse works the same way.
+- The build reports missing translations as warnings, so they're visible but don't block deploys.
+
+---
+
+## 9. Navigation & wayfinding (design §13)
 
 | Need (design §13.2) | Where |
 |---|---|
-| Return to main gallery | Header brand link · breadcrumb root · footer |
-| Return to previous room | `BackLink` / breadcrumb (§4.3) |
-| Reach another main section | Header menu · footer |
-| Find Shop / Freebies | Header menu (both are main sections) |
-| Contact Carla | Header WhatsApp button · footer · `EnquiryCTA` on service pages |
+| Return to main gallery | Header brand link, breadcrumb root, footer |
+| Return to previous room | `BackLink` / breadcrumb |
+| Reach another main section | Header menu, footer |
+| Find Shop / Freebies | Header menu |
+| Contact Carla | Header WhatsApp button, footer, `EnquiryCTA` |
 
-Labels are identical everywhere (design §13.3). They are generated from the room and page `title`s, never typed in twice.
-
-### 8.2 Shared page parent: RESOLVED
-
-Breinprofiele's `defaultParent` is **c4-akademie**. The consultation is an educational service, and parents are the main audience of that room (design §9.1). Visitors arriving from Mindfulness still get "back to Mindfulness" through router state.
+All labels are generated from content titles, never typed twice (design §13.3).
 
 ---
 
-## 9. Enquiries & WhatsApp (design §7.3, §8.3, §9.4–9.5, §10.4, §12)
+## 10. Assets (D4)
 
-- Links use `https://wa.me/<number>?text=<url-encoded prefilled message>`. The number lives only in `site.json`.
-- Each service page and product sets its own prefilled message, in the language of that page.
-- Shop/Products: while the catalogue is thin, the page shows a prominent "Browse the full WhatsApp catalogue" link (design §8.3, §10.4). Whether that's one link or one per category is D7.
-- No contact form. Design §12 only asks for contact info and WhatsApp, which keeps GitHub Pages hosting viable. This answers part of tech Q11.
+### 10.1 Folder convention
 
----
+**The image folders mirror the gallery.**
+- The root of `public/paintings/` holds *only* the 6 homepage artworks.
+- Each room or page that has its own images gets a sub-folder named exactly like its root image (which is also its slug).
+- All names are English and lowercase-kebab-case.
 
-## 10. Assets
+```
+public/
+  paintings/
+    about-me.png               ← homepage artworks (exactly 6)
+    art.png
+    mindfulness.png
+    c4-akademie.png
+    shop.png
+    freebies.png
+    about-me/                  ← extra images used on the About page
+    art/
+      art-lessons.png          ← Art room artworks
+      gallery.png
+      prints-and-paintings.png
+      gallery/                 ← portfolio works (works/*.json → image)
+      prints-and-paintings/    ← product photos, category "art"
+      decor/                   ← non-clickable room decoration
+    mindfulness/
+      mindfulness-products.png
+      mindfulness-freebies.png
+      brain-profiles.png
+      mindfulness-products/    ← product photos, category "mindfulness"
+    c4-akademie/
+      about-c4.png
+      extra-classes.png
+      speeches.png
+      brain-profiles.png       ← may differ from the Mindfulness one (design §9.6)
+      brain-profiles/          ← images inside the shared page (lives under its default parent)
+    shop/                      ← product photos, category "c4" (no separate C4 catalogue page)
+    freebies/                  ← freebie covers (shared by both freebie pages)
+  downloads/                   ← freebie PDFs (D9)
+  ui/placeholder-frame.svg
+  textures/{wall,floor}.png
+```
 
-### 10.1 Pipeline: ALIGNED with tech §3.6
+**Resolution rule:**
+- A room artwork is `paintings/<room-folder>/<target-slug>.<ext>`, where the home room's folder is the root.
+- A page's own images live in the folder for its slug, under its default parent.
+- The `.png`, `.jpg` and `.webp` extensions are all accepted.
+- To replace a temporary painting with the final one, **drop a file with the same name into the same folder**. No code or data changes are needed.
 
-- Artwork goes in `src/assets/`, so Vite fingerprints it and drops anything unused. Variants come from `vite-imagetools` (AVIF + WebP + PNG fallback, widths 400/800/1200).
-- Always emit `width`/`height`. Use `fetchpriority="high"` on the first homepage artwork and `loading="lazy"` on the rest.
-- Budget: ≤ 200 KB per wall image at 800w. The home wall should be under 1 MB total, compared with about 4.5 MB today.
-- Freebie PDFs live in `public/freebies/` (stable URLs, no hashing) unless D9 chooses external hosting.
+### 10.2 Optimisation without `src/assets/` (C18)
 
-### 10.2 Cut-out step (C23)
+`public/` files aren't processed by Vite, so 2 small build steps replace what `vite-imagetools` would have done:
 
-Physical artworks are photographed on blue cloth. Before import:
+1. **Manifest (Vite plugin, build start):**
+   - Scans `public/paintings/` and records which files exist, with their pixel width and height (using `sharp`).
+   - Lets the build report missing artworks (which get the placeholder) and orphaned files that nothing uses.
+   - Gives every `<img>` its `width`/`height`, which fixes layout shift.
+2. **Variants (post-build script, `sharp`):** writes `name-400w.webp`, `-800w.webp`, `-1200w.webp` (plus AVIF) next to each image in `dist/`. The originals stay in the repo and aren't changed.
 
-1. Mask to the object edge (GIMP, or `rembg` for a batch first pass).
-2. Export a transparent PNG master.
-3. Store the masters outside `src/`, for example in a `assets-src/` folder that isn't deployed, or outside the repo (tech Q6).
+Other notes:
+- Budget: ≤ 200 KB per wall image at 800w, and the home wall under 1 MB in total (it's about 4.5 MB today).
+- Use `fetchpriority="high"` on the first homepage artwork and `loading="lazy"` on the others.
+- Caching trade-off: unhashed file names mean a replaced painting can take up to ~10 minutes to show, because of GitHub Pages' cache headers. That's acceptable, and it's what makes the drop-in replacement from §10.1 work.
 
-The shape is then carried by the image itself (palette, sign, oval). `shape` in content only tunes the focus ring and hover shadow, e.g. `border-radius: 50%` for round pieces.
+### 10.3 Renaming the current temporary images (D4: ASSUMPTION, best judgement)
 
-### 10.3 Existing images → design concepts (answers part of Q6)
+All of these are unfinished stand-ins.
 
-| File | What it shows (WIP sketch unless noted) | Likely design concept |
+| Current file | New path | Why |
 |---|---|---|
-| `about-me.png` | Portrait sketch | §5.3 About Me (not final) |
-| `art.png` | **Painted** artist palette | §7.3 Kunslesse *or* §5.3 Kuns → **D4** |
-| `art/art-lessons.png` | Girl-with-a-Pearl-Earring-style sketch | Kunslesse placeholder, or Gallery (§7.4) → **D4** |
-| `art/prints-and-paintings.png` | Small pieces laid out on a surface | §7.5 / §14.9 ACEO workspace |
-| `artwork-01.png` | Head silhouette with stationery | §8.5 / §14.8 Breinprofiele |
-| `artwork-03.png` | Planner, calendar, journal | §8.3 / §14.7 Mindfulness Products |
-| `artwork-04.png` | Round smiley | Unassigned (Mindfulness homepage candidate?) |
-| `artwork-05.png` | House with sun | Unassigned |
-| `artwork-06.png` | Square pop-art gift | §5.3 / §14.2 Freebies (square) |
-| `artwork-08.png` | Books, set square, stationery | §14.3 C4 still life or §14.6 Ekstra klasse |
-| `artwork-09.png` | "C4" neon-style lettering | §5.3 / §9.2 C4 neon sign |
-| `artwork-10.png` | Irregular shard/cone shape | Unassigned |
-| `artwork-11.png` | Key with heart | §9.3 / §14.4 Meer oor ons |
-| `artwork-14.png` | Lightbulb with brain | Unassigned (Breinprofiele alt / C4) |
-| `artwork-15.png` | Oval mouth with braces | §9.5 / §14.1 Toesprake |
-| `mindfulness/free.png` | Oval pop-art gift | §14.2 Freebies (oval) |
-| `shop.png` | **Painted** octagonal sign reading "STOP" | §5.3 Winkel sign → **D4** |
+| `about-me.png` | `paintings/about-me.png` | Portrait sketch |
+| `art/art-lessons.png` | `paintings/art.png` | A classic-portrait study reads as "Art" |
+| `artwork-04.png` | `paintings/mindfulness.png` | A round smiley suits the calm, playful tone |
+| `artwork-09.png` | `paintings/c4-akademie.png` | C4 neon lettering (design §5.3) |
+| `shop.png` | `paintings/shop.png` | Sign-shaped (it currently reads "STOP", but it's temporary) |
+| `artwork-06.png` | `paintings/freebies.png` | Square pop-art gift (design §14.2) |
+| `art.png` | `paintings/art/art-lessons.png` | Painter's palette (design §7.3) |
+| `artwork-05.png` | `paintings/art/gallery.png` | Finished-looking drawing, a portfolio stand-in |
+| `art/prints-and-paintings.png` | `paintings/art/prints-and-paintings.png` | ACEO workspace (design §14.9) |
+| `artwork-03.png` | `paintings/mindfulness/mindfulness-products.png` | Planner, calendar, journal (design §14.7) |
+| `mindfulness/free.png` | `paintings/mindfulness/mindfulness-freebies.png` | Oval gift (design §14.2) |
+| `artwork-01.png` | `paintings/mindfulness/brain-profiles.png` | Head silhouette (design §14.8) |
+| `artwork-11.png` | `paintings/c4-akademie/about-c4.png` | Key with heart (design §14.4) |
+| `artwork-08.png` | `paintings/c4-akademie/extra-classes.png` | Books and maths instruments (design §14.6) |
+| `artwork-15.png` | `paintings/c4-akademie/speeches.png` | Mouth with braces (design §14.1) |
+| `artwork-14.png` | `paintings/c4-akademie/brain-profiles.png` | Lightbulb brain, a different take for the C4 room (design §9.6) |
+| `artwork-10.png` | `assets-unused/artwork-10.png` | Unassigned. Kept outside `public/` so it doesn't deploy. |
+| `graffiti-overlay.svg`, `icons.svg` | `assets-unused/` | Not referenced anywhere (tech §2.3) |
+
+- Every one of the 16 placements gets a stand-in, so no wall placeholder is needed at launch.
+- `art.png` and `art/art-lessons.png` swap names. Do the swap through a temporary name (`git mv`) so neither file overwrites the other.
+
+### 10.4 When final artworks arrive (C23)
+
+1. Cut the object out of its background so its shape reads on the wall (GIMP, or `rembg` for a first pass).
+2. Export a transparent PNG at roughly 2000px on the long side.
+3. Save it under its convention name (§10.1).
+4. Keep the full-resolution masters outside the repo.
 
 ---
 
-## 11. Accessibility, SEO & quality (tech §2.4, §3.5–3.6)
+## 11. Enquiries & WhatsApp (D7)
 
-- Each page has one `<h1>`: the room or page title. On the home page, the h1 is the "Carla.S.Botha" signature.
-- Room artworks go in a `<ul>` inside `<main>`. The header menu is the `<nav>`. Remove `aria-label="Gallery navigation"` from `<main>`.
-- `:focus-visible` style on every interactive element. All motion (hover scale, neon) goes inside `prefers-reduced-motion: no-preference`.
-- On route change, focus moves to the `<h1>` and scroll is restored or reset.
-- Language: `<html lang>` = the primary language (D2). Every block or title in the other language gets its own `lang`.
-- `PageMeta` gives every page a title (`<Page> — Carla.S.Botha`), a description and `og:image`. These are prerendered (C13).
-- Content guardrails from the design, applied in content review rather than code:
+- **Channel:** WhatsApp Business, which is free. Its catalogue and **collections** features are free too.
+- **`site.json`** holds:
+
+  ```json
+  "whatsapp": {
+    "number": "27XXXXXXXXX",
+    "catalogs": {
+      "all": "https://wa.me/c/27XXXXXXXXX",
+      "art": "<collection share link>",
+      "mindfulness": "<collection share link>",
+      "c4": "<collection share link>"
+    },
+    "templates": {
+      "general":  "Hi Carla! I found you on carla-s-botha.zeldean.me and would like to get in touch.",
+      "enquiry":  "Hi Carla! I'm interested in {page} and would like more information, please.",
+      "product":  "Hi Carla! I'd like to order: {product}{option}. Is it still available?",
+      "lessons":  "Hi Carla! I'd like to ask about {page}. My child is in Grade __ and I'm looking for lessons on __ (weekdays/weekends).",
+      "speech":   "Hi Carla! I'd like to order a speech. Grade: __ · Topic: __ · Due date: __ · Extras (PowerPoint / pictures / prep session): __"
+    }
+  }
+  ```
+
+- **ASSUMPTION:** collection links are copied from the WhatsApp Business app (*Catalogue → collection → Share link*). They aren't built by the site, because WhatsApp's link format isn't a stable public API. Any category without a link falls back to `all`.
+- Templates are in **English** for consistency (D7). `{page}` and `{product}` are filled in with the English title. Links use `https://wa.me/<number>?text=<url-encoded>`.
+- No contact form, so hosting stays on GitHub Pages.
+
+---
+
+## 12. Accessibility, SEO, privacy & quality
+
+- Each page has one `<h1>`. On the home page it's the "Carla.S.Botha" signature, with a welcoming phrase (design §5.2).
+- Room artworks go in a `<ul>` inside `<main>`. The header menu is the `<nav>`.
+- `:focus-visible` style on everything interactive. All motion goes inside `prefers-reduced-motion: no-preference`. Focus moves to the `<h1>` on route change.
+- `PageMeta`: title `<Page title> — Carla.S.Botha`, plus description and `og:image`, all prerendered in AF.
+- **D10 defaults** (the owner had no preference, and these are easy to change):
+  - Keep `carla-s-botha.zeldean.me`.
+  - **No analytics** and no cookies, so there's no consent banner and nothing to declare under POPIA.
+  - Support the last 2 versions of evergreen browsers plus iOS Safari 16+, using `<picture>` with a PNG fallback.
+- Content guardrails from the design:
   - No medical claims (§8.3, §8.5).
   - The Master's in Art Therapy is described as a future ambition (§6.5).
   - Adult sessions aren't shown as bookable unless they are (§7.3).
   - Only confirmed subjects are listed (§9.4).
-- `npm run check` = lint + content validation, run in CI before the build. Vitest smoke test: every published slug renders, unknown paths render `NotFound`.
-- Housekeeping from tech §2.2 / §3.6:
+  - **D5:** speeches use the second price list, delivered as **PDF**.
+- `npm run check` = lint + content validation, and it runs in CI before the build. Vitest smoke test: every slug renders in both languages, and unknown paths render `NotFound`.
+- Housekeeping:
   - Drop `master` from the workflow trigger.
   - Add `"engines": { "node": ">=22" }`.
   - Switch to the `react-router` package.
 
-### 11.1 Current bugs → where they're fixed
+### 12.1 Current bugs → where they're fixed
 
 | Bug | Fixed by |
 |---|---|
-| B1 stray `3` (`src/pages/Gallery.jsx:55`) | Replaced by `Room` (fix directly if a hotfix is shipped earlier) |
-| B2 `portriat` / `shape` has no effect | `shape` enum validated by zod + shape CSS (§7.2) |
-| B3 non-recursive gallery lookup | Flat slug index (§4.1) |
-| B4 no catch-all | `NotFound` route |
-| B5 back-link always `/` | `BackLink` (§4.3) |
-| B6 dark text on dark fallback | Tokens (§7.6) |
+| B1 stray `3` (`src/pages/Gallery.jsx:55`) | Replaced by `Room` |
+| B2 `portriat` / `shape` has no effect | zod `shape` enum + shape CSS |
+| B3 non-recursive gallery lookup | Flat slug index |
+| B4 no catch-all | `NotFound` |
+| B5 back-link always `/` | `BackLink` |
+| B6 dark text on dark fallback | Tokens |
 
 ---
 
-## 12. Out of scope (design §15.3)
+## 13. Decision log
 
-Robotics, SmartyPantZ, new art courses, extra subjects and an expanded shop are **not** built. Adding them later should only need a new content file plus a placement in a room.
+### 13.1 Owner decisions (2026-10-15)
 
----
+| # | Decision | Applied in |
+|---|---|---|
+| D1 | No old links were shared. All URLs and code are English, except the brand slug `/c4-akademie`. | §3.1, §4.1, §5.1 |
+| D2 | Afrikaans is primary. Short labels also show English. A site-wide toggle picks the language for full content. | §8 |
+| D3 | Every destination is shown, and missing artwork gets a placeholder. "Only show what is ready" no longer applies. | §5.1, §7.5 |
+| D4 | The current paintings are temporary, so use best judgement for which goes where. Store them in `public/` in folders that mirror the gallery, named in English. | §10 |
+| D5 | Speeches are delivered as PDF, using the second price list. | §12 |
+| D6 | Fonts: best judgement, may change later. | §7.7 |
+| D7 | Free option: WhatsApp Business catalogue links per category, with English message templates. | §11 |
+| D8 | The developer edits code and Markdown. A non-developer family member edits the JSON data files. | §5.2, §5.8 |
+| D9 | Freebie files in the repo for now, possibly Google Drive later. | §5.6 |
+| D10 | No preference on domain, analytics or browser support, so the defaults are used. | §12 |
+| D11 | Grid composition approved. Improvements are welcome. | §7.2 (`place` added) |
 
-## 13. Decision log: DECISION NEEDED
+### 13.2 Still open (small)
 
-| # | Question | Recommended default | Blocks |
-|---|---|---|---|
-| D1 | URL language: slugs follow the first label (`/oor-my`, `/kuns`, `/winkel`, `/gallery`), all-English, or all-Afrikaans? Also tech Q2: were the old `/gallery/*` and `/detail/*` links shared? | First-label rule (table §3.1). Add legacy redirects only if the old links were shared. | Routing (task 2) |
-| D2 | Bilingual presentation, and which language is primary site-wide (tech Q3, design §17 last bullet). Is About shown as AF and EN **stacked**, or with an in-page AF/EN switch? | No site-wide toggle. About is stacked, AF first, with "Lees in Afrikaans / Read in English" jump links. Primary `lang`: **af**. | About page, `<html lang>` |
-| D3 | Destinations with nothing ready (C7). Do the homepage artworks always show? What do empty Shop/Freebies pages show? | The six homepage artworks always show. Empty Shop/Products show the WhatsApp-catalogue fallback. Empty Freebies shows a single "first gifts are being wrapped" note, not empty categories. Room placements whose target page is unpublished are hidden. | Catalogue/FreebieList states |
-| D4 | Artwork assignment (C18). Is the painted palette for **Kuns** (current code) or **Kunslesse** (design §7.3)? Is the pearl-earring sketch Kunslesse or Gallery? Is "STOP" on the shop sign intended (a pun) or still to be repainted as "SHOP"? Where do `artwork-04/05/10/14` go? | Follow the design: palette → Kunslesse. Keep everything else as a placeholder until §17 items are final. | Room content only (not code) |
-| D5 | Speech-writing price list and delivery format (PDF vs Word). Design §9.5 says these must be confirmed. | Use the second list and PDF. Keep `toesprake` at `published: false` until confirmed. | Toesprake publication |
-| D6 | Fonts: display (retro/sign lettering), handwritten accent, body | Self-hosted through `@fontsource` (no Google Fonts requests, so no third-party IP logging). Pick 1 display + 1 hand + 1 readable body. | Tokens |
-| D7 | WhatsApp: the number, one catalogue link or one per category, and the wording of prefilled messages (tech Q9) | One number. Per-category catalogue links if WhatsApp Business collections exist, otherwise one link. | `EnquiryCTA`, Shop |
-| D8 | Who edits content after launch (tech Q4)? | Markdown/JSON in the repo now. The file-based schema allows a git-backed CMS (Decap) later without restructuring. | Editing workflow |
-| D9 | Freebie file hosting (tech Q8) | `public/freebies/` in the repo while the total is under ~50 MB | Freebies |
-| D10 | Final domain (Q10), analytics/privacy (Q11; South Africa's POPIA applies if anything is tracked), browser support (Q12) | Keep the current domain. No analytics, or cookieless analytics only. Last 2 versions of evergreen browsers, plus iOS Safari 16+ with WebP/PNG fallback. | Prerender base URL, `<picture>` formats |
-| D11 | Irregular composition (Q7): approve the grid + nudge approach from a prototype of the home wall | Grid + `size` + `nudge` (§7.2) | Room layout sign-off |
+- How the JSON editor will edit: VSCodium locally or GitHub's web editor. This decides how much the editing guide covers.
+- Who writes the English versions of the full page bodies. The approved AF and EN biographies (design §6.5) aren't in the repo yet.
 
-### 13.1 Content blockers (from design §17)
+### 13.3 Content blockers (from design §17)
 
-These don't block building. Pages ship with `published: false` until they're filled in.
+These don't block building, because placeholders cover them (D3).
 
-- Final artworks:
-  - About, Art and Mindfulness homepage artworks
-  - Shop sign
-  - Gallery portfolio pieces
-  - Kunslesse and Toesprake artworks
-- Art lesson formats, ages and prices. Adult sessions only if they can be booked.
-- Extra C4 subjects. Breinprofiele consultation offerings and prices.
-- Product inventory and availability, and which freebies are ready.
-- The approved full AF and EN biographies (design §6.5 refers to them, but they aren't in the repo).
-- Contact details and social links.
+- Final artworks for every placement.
+- Art lesson formats, ages and prices. Extra C4 subjects. Brain-profile consultation offerings and prices.
+- Product inventory, which freebies are ready, and the PDFs themselves.
+- The WhatsApp number, collection share links, contact details and social links.
 
 ---
 
 ## 14. Implementation plan
 
-The phases run in dependency order. Each task leaves the site deployable.
+Each task leaves the site deployable.
 
-1. **Content model + build-time validation** (§5).
-   - Create `src/content/` and the zod schemas.
-   - Write the Vite plugin that parses Markdown and validates content.
-   - Build the slug index.
-   - Migrate the 3 existing nodes, and stub the remaining 13 destinations with `published: false`.
+1. **Content model, image reorganisation and validation** (§5, §10.1–10.3). **Done 2026-10-15.**
+   - Rename and move the images per §10.3.
+   - Create `src/content/` with the 4 rooms, 12 page folders, `site.json` and `ui.json`.
+   - Write the zod schemas and generate JSON Schema from them.
+   - Write the Vite plugin: content index, image manifest, errors and warnings.
    - Add `npm run check` to CI.
-   - No UI changes yet. This makes the 16-destination structure real and testable, and it's what every later task reads from.
-2. **Routing + layout shell** (§4, §6, §7.1, §8).
-   - Verify Vite 8 support, then set up framework-mode prerender (or the fallback).
-   - Add the flat `/:slug` route, `MuseumLayout` with `SiteHeader` / `Footer` / static floor, `NotFound`, `PageMeta`, `BackLink`/breadcrumbs, and legacy redirects if D1 calls for them.
-   - This closes B1, B3, B4, B5 and B6, and C6, C12, C13, C19 and C20.
-3. **Room wall: `Room` / `ArtworkLink` / `Plaque`** (§7.2–7.4).
-   - Add shape, size and nudge variants, the structured plaque, the accessible names, focus and reduced-motion handling, and per-room theme tokens.
-   - Use the existing images for now, behind `vite-imagetools`.
-   - Ship it as the home-wall prototype for D11 sign-off. This closes B2, C4, C5 and C8.
+   - Write `docs/editing-guide.md` for the JSON editor.
+   - No UI changes yet. Every later task reads from this.
+2. **Routing, layout shell and language** (§4, §6, §8, §9).
+   - Verify Vite 8 support, then set up prerender (or the fallback).
+   - Add `/:slug`, `MuseumLayout` with `SiteHeader` / `Footer` / static floor, `LanguageToggle` with the no-flash script, `NotFound`, `PageMeta`, `BackLink`/breadcrumbs, and the 3 fonts.
+   - Closes B1, B3, B4, B5, B6 and C6, C12, C13, C19, C20.
+3. **Room wall: `Room` / `ArtworkLink` / `Plaque` / `ResponsiveImage`** (§7.2–7.5, §10.2).
+   - Add shape, size, `place` and `nudge`, the bilingual plaque, the placeholder frame, theme tokens, accessible names, focus and reduced-motion handling, and the `sharp` variants step.
+   - Closes B2, C4, C5 and C8.
 
 After that:
 
-4. `InfoPage` + `EnquiryCTA` + Markdown rendering. About, then the services.
-5. `Catalogue` / `ProductCard` (3 pages).
-6. `FreebieList` (2 pages).
+4. `InfoPage` + `EnquiryCTA` + Markdown. About first, then the services.
+5. `Catalogue` / `ProductCard`.
+6. `FreebieList`.
 7. `Portfolio`.
-8. Asset cut-out and optimisation pass, and moving the masters out of `public/`.
-9. Accessibility and Lighthouse audit, then content fill as the blockers clear.
+8. Accessibility and Lighthouse audit, then content fill as the blockers clear.

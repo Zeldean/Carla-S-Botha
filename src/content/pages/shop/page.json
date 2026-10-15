@@ -1,0 +1,19 @@
+{
+  "$schema": "../../../../schemas/page.schema.json",
+  "type": "catalogue",
+  "title": {
+    "af": "Winkel",
+    "en": "Shop"
+  },
+  "defaultParent": "home",
+  "services": [
+    "art-lessons",
+    "extra-classes",
+    "speeches",
+    "brain-profiles"
+  ],
+  "description": {
+    "af": "Alles van Kuns, Mindfulness en C4 Akademie op een plek.",
+    "en": "Everything from Art, Mindfulness and C4 Akademie in one place."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "../../../../schemas/page.schema.json",
+  "type": "info",
+  "layout": "personal",
+  "title": {
+    "af": "Oor my",
+    "en": "About Me"
+  },
+  "defaultParent": "home",
+  "description": {
+    "af": "Onderwyser, kunstenaar, skrywer en nuuskierige mens.",
+    "en": "Teacher, artist, writer and curious human."
+  }
+}

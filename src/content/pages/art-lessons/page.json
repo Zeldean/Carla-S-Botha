@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../../schemas/page.schema.json",
+  "type": "info",
+  "title": {
+    "af": "Kunslesse",
+    "en": "Art Lessons"
+  },
+  "defaultParent": "art",
+  "description": {
+    "af": "Kreatiewe kunslesse vir kinders.",
+    "en": "Creative art lessons for children."
+  },
+  "cta": {
+    "label": {
+      "af": "Vra oor kunslesse",
+      "en": "Ask about art lessons"
+    },
+    "template": "lessons"
+  }
+}

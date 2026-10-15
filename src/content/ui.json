@@ -1,0 +1,66 @@
+{
+  "skipToContent": {
+    "af": "Slaan oor na inhoud",
+    "en": "Skip to content"
+  },
+  "menu": {
+    "af": "Kieslys",
+    "en": "Menu"
+  },
+  "language": {
+    "af": "Taal",
+    "en": "Language"
+  },
+  "mainGallery": {
+    "af": "Hoofgalery",
+    "en": "Main gallery"
+  },
+  "backTo": {
+    "af": "Terug na",
+    "en": "Back to"
+  },
+  "comingSoon": {
+    "af": "Kom binnekort",
+    "en": "Coming soon"
+  },
+  "roomSetup": {
+    "af": "Hierdie kamer word nog ingerig.",
+    "en": "This room is still being set up."
+  },
+  "onlyAfrikaans": {
+    "af": "Hierdie bladsy is tans net in Afrikaans beskikbaar.",
+    "en": "This page is currently only available in Afrikaans."
+  },
+  "onlyEnglish": {
+    "af": "Hierdie bladsy is tans net in Engels beskikbaar.",
+    "en": "This page is currently only available in English."
+  },
+  "enquireWhatsapp": {
+    "af": "Vra op WhatsApp",
+    "en": "Ask on WhatsApp"
+  },
+  "browseCatalogue": {
+    "af": "Blaai deur die WhatsApp-katalogus",
+    "en": "Browse the WhatsApp catalogue"
+  },
+  "priceOnEnquiry": {
+    "af": "Prys op navraag",
+    "en": "Price on enquiry"
+  },
+  "services": {
+    "af": "Dienste",
+    "en": "Services"
+  },
+  "download": {
+    "af": "Laai af",
+    "en": "Download"
+  },
+  "notFound": {
+    "af": "Hierdie kamer hang nog nie aan die muur nie.",
+    "en": "This room isn't on the wall yet."
+  },
+  "contact": {
+    "af": "Kontak",
+    "en": "Contact"
+  }
+}

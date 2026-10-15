@@ -1,0 +1,221 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tagline": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "properties": {
+            "af": {
+              "type": "string",
+              "minLength": 1
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "af",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "domain": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contact": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "email",
+              "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "phone": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "email",
+        "phone"
+      ],
+      "additionalProperties": false
+    },
+    "socials": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "name",
+          "url"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "whatsapp": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d{11,15}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "catalogs": {
+          "type": "object",
+          "properties": {
+            "all": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uri"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "art": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uri"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "mindfulness": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uri"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "c4": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uri"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "all",
+            "art",
+            "mindfulness",
+            "c4"
+          ],
+          "additionalProperties": false
+        },
+        "templates": {
+          "type": "object",
+          "properties": {
+            "general": {
+              "type": "string",
+              "minLength": 1
+            },
+            "enquiry": {
+              "type": "string",
+              "minLength": 1
+            },
+            "product": {
+              "type": "string",
+              "minLength": 1
+            },
+            "lessons": {
+              "type": "string",
+              "minLength": 1
+            },
+            "speech": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "general",
+            "enquiry",
+            "product",
+            "lessons",
+            "speech"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "number",
+        "catalogs",
+        "templates"
+      ],
+      "additionalProperties": false
+    },
+    "nav": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      }
+    }
+  },
+  "required": [
+    "brand",
+    "tagline",
+    "domain",
+    "contact",
+    "whatsapp",
+    "nav"
+  ],
+  "additionalProperties": false
+}
