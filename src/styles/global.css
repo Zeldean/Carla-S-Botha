@@ -1,0 +1,13 @@
+@import "./tokens.css";
+@import "./reset.css";
+@import "./textures.css";
+@import "./lang.css";
+
+.visually-hidden {
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}

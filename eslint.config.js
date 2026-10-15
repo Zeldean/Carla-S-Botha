@@ -13,14 +13,21 @@ export default defineConfig([
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
     ],
+    rules: {
+      // React Router route modules export these alongside the component.
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowExportNames: ['meta', 'links', 'Layout', 'ErrorBoundary', 'HydrateFallback'] },
+      ],
+    },
     languageOptions: {
       globals: globals.browser,
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
   {
-    // Build-time Node code (content pipeline, Vite config).
-    files: ['scripts/**/*.js', 'vite.config.js'],
+    // Build-time Node code (content pipeline, Vite and React Router config).
+    files: ['scripts/**/*.js', 'vite.config.js', 'react-router.config.js'],
     languageOptions: { globals: globals.node },
   },
 ])

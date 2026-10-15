@@ -1,0 +1,23 @@
+.toggle {
+    border: 2px solid var(--color-text);
+    border-radius: 999px;
+    display: inline-flex;
+    overflow: hidden;
+}
+
+.option {
+    background: transparent;
+    border: 0;
+    color: var(--color-text);
+    cursor: pointer;
+    font: 800 0.8rem/1 var(--font-body);
+    letter-spacing: 0.08rem;
+    min-height: 32px;
+    min-width: 40px;
+    padding: var(--space-2) var(--space-2);
+}
+
+.option[aria-pressed="true"] {
+    background: var(--color-text);
+    color: var(--color-bg);
+}

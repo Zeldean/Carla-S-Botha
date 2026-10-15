@@ -1,0 +1,6 @@
+/* Full content follows the site-wide toggle (spec §8): elements marked data-l are only
+   shown in their language. Elements without data-l are always visible. */
+html[data-lang="af"] [data-l="en"],
+html[data-lang="en"] [data-l="af"] {
+    display: none !important;
+}

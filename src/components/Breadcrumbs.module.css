@@ -1,0 +1,30 @@
+.breadcrumbs {
+    background: var(--color-plaque);
+    border-radius: var(--radius);
+    box-shadow: 0 5px 12px rgba(39, 31, 23, 0.18);
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: var(--space-4);
+    padding: var(--space-2) var(--space-3);
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-2);
+    list-style: none;
+}
+
+.list li + li::before {
+    content: "›";
+    margin-right: var(--space-2);
+}
+
+.list a {
+    text-underline-offset: 3px;
+}
+
+.list [aria-current="page"] {
+    font-weight: 400;
+}

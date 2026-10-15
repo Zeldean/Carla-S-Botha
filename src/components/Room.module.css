@@ -1,0 +1,113 @@
+.room {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.heading {
+    padding: var(--space-4) var(--space-3) 0;
+    text-align: center;
+}
+
+.title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 7vw, 3.6rem);
+    font-weight: 400;
+    line-height: 1.05;
+}
+
+.intro {
+    font-family: var(--font-hand);
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    margin-top: var(--space-2);
+}
+
+.wall {
+    /* Flex so the number of artworks can change freely. */
+    align-items: center;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--space-4);
+    list-style: none;
+    margin: var(--space-4) auto;
+    max-width: 90%;
+}
+
+.artwork {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    text-decoration: none;
+    width: min(100%, 380px);
+}
+
+.slot {
+    /* Every artwork gets its own invisible square display area (design §2.5). */
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.image {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    width: auto;
+}
+
+.plaque {
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.06rem;
+    line-height: 1.25;
+    padding: 12px 14px;
+    text-align: center;
+    text-transform: uppercase;
+    width: min(80%, 240px);
+}
+
+.floor {
+    flex: none;
+    height: var(--floor-height);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .image {
+        transition: transform 180ms ease;
+    }
+
+    .artwork:hover .image,
+    .artwork:focus-visible .image {
+        transform: scale(1.08);
+    }
+}
+
+@media (min-width: 720px) {
+    .wall {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 36px 28px;
+        justify-content: center;
+        max-width: 88%;
+    }
+
+    .artwork {
+        width: 320px;
+    }
+}
+
+@media (min-width: 1330px) {
+    .wall {
+        gap: 46px 38px;
+        max-width: 1480px;
+    }
+
+    .artwork {
+        width: 300px;
+    }
+}

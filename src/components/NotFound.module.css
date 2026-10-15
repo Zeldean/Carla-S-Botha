@@ -1,0 +1,21 @@
+.notFound {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+    padding: var(--space-6) var(--space-3);
+}
+
+.notFound h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 6vw, 3rem);
+    line-height: 1.1;
+    max-width: 20ch;
+}
+
+.link {
+    background: var(--color-plaque);
+    border-radius: var(--radius);
+    font-weight: 800;
+    padding: var(--space-2) var(--space-3);
+    text-decoration: none;
+}

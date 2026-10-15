@@ -616,7 +616,7 @@ Each task leaves the site deployable.
    - Add `npm run check` to CI.
    - Write `docs/editing-guide.md` for the JSON editor.
    - No UI changes yet. Every later task reads from this.
-2. **Routing, layout shell and language** (§4, §6, §8, §9).
+2. **Routing, layout shell and language** (§4, §6, §8, §9). **Done 2026-10-15** on React Router 7.18.4 (v8 exists; upgrading is a separate step). Pages are emitted as `<slug>.html` and `404.html` is the SPA fallback with the not-found page baked in. `npm run preview` (`scripts/preview.js`) mimics GitHub Pages, because `vite preview` serves the home HTML for every path. Room and page views are interim until tasks 3–4, and Markdown rendering (`react-markdown` + `remark-gfm`) was pulled forward from task 4.
    - Verify Vite 8 support, then set up prerender (or the fallback).
    - Add `/:slug`, `MuseumLayout` with `SiteHeader` / `Footer` / static floor, `LanguageToggle` with the no-flash script, `NotFound`, `PageMeta`, `BackLink`/breadcrumbs, and the 3 fonts.
    - Closes B1, B3, B4, B5, B6 and C6, C12, C13, C19, C20.

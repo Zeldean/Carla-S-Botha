@@ -1,0 +1,123 @@
+.header {
+    align-items: center;
+    background: rgba(23, 24, 26, 0.94);
+    color: var(--color-text);
+    display: grid;
+    gap: var(--space-2) var(--space-3);
+    grid-template-areas:
+        "brand tools"
+        "menu  menu"
+        "nav   nav";
+    grid-template-columns: 1fr auto;
+    padding: var(--space-2) var(--space-3);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.brand {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    grid-area: brand;
+    letter-spacing: 0.04rem;
+    text-decoration: none;
+}
+
+.menuButton {
+    background: transparent;
+    border: 2px solid var(--color-text);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    cursor: pointer;
+    font: 800 0.85rem/1 var(--font-body);
+    grid-area: menu;
+    justify-self: start;
+    letter-spacing: 0.08rem;
+    min-height: 36px;
+    padding: var(--space-2) var(--space-3);
+    text-transform: uppercase;
+}
+
+.nav {
+    display: none;
+    grid-area: nav;
+}
+
+.nav[data-open="true"] {
+    display: block;
+}
+
+.navList {
+    display: grid;
+    gap: var(--space-1);
+    list-style: none;
+    padding-bottom: var(--space-2);
+}
+
+.navLink {
+    border-radius: var(--radius);
+    display: block;
+    font-weight: 700;
+    padding: var(--space-2);
+    text-decoration: none;
+}
+
+.navLink:hover,
+.navLink[aria-current="page"] {
+    background: rgba(255, 227, 204, 0.14);
+}
+
+.navLink[aria-current="page"] {
+    box-shadow: inset 4px 0 0 var(--color-accent);
+}
+
+.tools {
+    align-items: center;
+    display: flex;
+    gap: var(--space-2);
+    grid-area: tools;
+}
+
+.whatsapp {
+    background: var(--color-whatsapp);
+    border-radius: 999px;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 800;
+    padding: var(--space-2) var(--space-3);
+    text-decoration: none;
+}
+
+@media (min-width: 1330px) {
+    .header {
+        grid-template-areas: "brand nav tools";
+        grid-template-columns: auto 1fr auto;
+        padding: var(--space-2) var(--space-5);
+    }
+
+    .menuButton {
+        display: none;
+    }
+
+    .nav,
+    .nav[data-open="false"] {
+        display: block;
+    }
+
+    .navList {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-1) var(--space-2);
+        justify-content: center;
+        padding: 0;
+    }
+
+    .navLink {
+        font-size: 0.9rem;
+        padding: var(--space-1) var(--space-2);
+    }
+
+    .navLink[aria-current="page"] {
+        box-shadow: inset 0 -3px 0 var(--color-accent);
+    }
+}

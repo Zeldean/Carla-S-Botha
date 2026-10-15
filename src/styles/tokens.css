@@ -1,0 +1,34 @@
+/* Design tokens. No raw colours or font stacks outside this file (spec §7.7).
+   Breakpoints (mobile-first, min-width): 720px tablet · 1330px desktop. */
+:root {
+    /* UI chrome only; artwork colour lives in the images. */
+    --color-bg: #17181a;
+    --color-text: #ffe3cc;
+    --color-ink: #2d261d;          /* text on wall and plaques */
+    --color-wall: #a6a497;         /* average of wall.png, so text stays readable if it fails to load */
+    --color-plaque: #eee3cf;
+    --color-accent: #ff2e88;       /* hot pink */
+    --color-focus: #ffd400;        /* sunshine yellow */
+    --color-whatsapp: #1f7a3d;
+
+    --font-display: "Bungee", "Arial Black", sans-serif;
+    --font-hand: "Caveat", "Comic Sans MS", cursive;
+    --font-body: "Nunito Variable", "Nunito", Arial, sans-serif;
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 16px;
+    --space-4: 24px;
+    --space-5: 32px;
+    --space-6: 48px;
+
+    --radius: 6px;
+    --floor-height: 100px;
+    --measure: 68ch;
+}
+
+@media (min-width: 1330px) {
+    :root {
+        --floor-height: 150px;
+    }
+}
