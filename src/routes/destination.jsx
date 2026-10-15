@@ -1,3 +1,4 @@
+import Catalogue from "../components/Catalogue";
 import InfoPage from "../components/InfoPage";
 import NotFound from "../components/NotFound";
 import PageView from "../components/PageView";
@@ -19,5 +20,6 @@ export default function Destination({ params }) {
   if (!entry || entry.slug === "home") return <NotFound />;
   if (entry.kind === "room") return <Room key={entry.slug} room={entry} />;
   if (entry.type === "info") return <InfoPage key={entry.slug} page={entry} />;
+  if (entry.type === "catalogue") return <Catalogue key={entry.slug} page={entry} />;
   return <PageView key={entry.slug} page={entry} />;
 }

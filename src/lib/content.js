@@ -1,7 +1,20 @@
 // Read-only access to the validated content index (built by scripts/content/vite-plugin.js).
 import content from "virtual:content";
 
-export const { site, ui, rooms, pages } = content;
+export const { site, ui, rooms, pages, products, works, freebies } = content;
+
+/** Product category → the room whose title names it (Kuns / Art, Mindfulness, C4 Akademie). */
+export const CATEGORY_ROOMS = { art: "art", mindfulness: "mindfulness", c4: "c4-akademie" };
+
+/** Products a catalogue may show: published and not sold (spec §5.4). */
+export const catalogueProducts = (category) =>
+  Object.values(products).filter(
+    (product) => product.published && product.status !== "sold" && (!category || product.category === category),
+  );
+
+/** 1200 → "R1 200" (South African style, non-breaking space). null → null. */
+export const formatPrice = (price) =>
+  price == null ? null : `R${String(price).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0")}`;
 
 /** A room or page by slug, tagged with its kind, or null. */
 export function getEntry(slug) {

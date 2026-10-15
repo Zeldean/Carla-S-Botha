@@ -630,7 +630,11 @@ After that:
    - Markdown bodies are split into one `<section>` per `##`. Tables get a caption from the heading above them. Both are small rehype plugins in `src/lib/rehype.js`.
    - On desktop the artwork and enquiry button are sticky beside the text, with the artwork height capped so the button never ends up behind the floor. On phones the button sits under the artwork and again after the text.
    - `layout: personal` frames each section and turns bold-only lines and headings into the handwritten font.
-5. `Catalogue` / `ProductCard`.
+5. `Catalogue` / `ProductCard`. **Done 2026-10-15.**
+   - All 3 catalogue pages read one product pool: Shop groups it by category and adds a Services section; the other two filter it.
+   - Sold items are hidden. Prices are formatted as "R1 200"; `null` shows "Prys op navraag / Price on enquiry".
+   - Choosing an option updates the prefilled WhatsApp message.
+   - An empty category shows a "coming soon" note, plus that category's WhatsApp catalogue link (falling back to `all`).
 6. `FreebieList`.
 7. `Portfolio`.
 8. Accessibility and Lighthouse audit, then content fill as the blockers clear.

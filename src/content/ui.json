@@ -66,5 +66,33 @@
   "breadcrumb": {
     "af": "Waar jy is",
     "en": "You are here"
+  },
+  "orderWhatsapp": {
+    "af": "Bestel op WhatsApp",
+    "en": "Order on WhatsApp"
+  },
+  "madeToOrder": {
+    "af": "Word op bestelling gemaak",
+    "en": "Made to order"
+  },
+  "option": {
+    "af": "Keuse",
+    "en": "Option"
+  },
+  "medium": {
+    "af": "Medium",
+    "en": "Medium"
+  },
+  "size": {
+    "af": "Grootte",
+    "en": "Size"
+  },
+  "use": {
+    "af": "Gebruik",
+    "en": "Use"
+  },
+  "noProductsYet": {
+    "af": "Produkte kom binnekort hierheen. Blaai solank deur die WhatsApp-katalogus.",
+    "en": "Products are coming here soon. In the meantime, browse the WhatsApp catalogue."
   }
 }
